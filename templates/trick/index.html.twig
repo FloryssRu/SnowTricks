@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <header>
+        <h1>Accueil - SnowTricks</h1>
+    </header>
+    {% for trick in tricks %}
+        <p>un trick</p>
+    {% else %}
+        <p>Aucun trick publié !</p>
+    {% endfor %}
+{% endblock %}
