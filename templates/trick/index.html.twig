@@ -3,19 +3,22 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <header>
+    <header id="header">
+        <img src="/img/background_home.jpg" alt="image de fond">
         <h1>Accueil - SnowTricks</h1>
-        <img>
+        <a href="#tricks"><img src="/img/arrow_down.png" alt="descendre"></a>
     </header>
-    {% for trick in tricks %}
-        <article>
-            <img>
-            <p><a href="#"></a></p>
-            <a href="#"><img></a>
-            <a href="#"><img></a>
-        </article>
-    {% else %}
-        <p>Aucun trick publié !</p>
-    {% endfor %}
-    <img>
+    <section id="tricks">
+        {% for trick in tricks %}
+            <article>
+                <img>
+                <p><a href="#"></a></p>
+                <a href="#"><img></a>
+                <a href="#"><img></a>
+            </article>
+        {% else %}
+            <p>Aucun trick publié !</p>
+        {% endfor %}
+        <a href="#header"><img src="/img/arrow_up.png" alt="monter"></a>
+    </section>
 {% endblock %}
