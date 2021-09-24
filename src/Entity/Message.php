@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
@@ -19,23 +20,36 @@ class Message
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @Assert\Datetime
      */
     private $dateCreation;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le contenu doit avoir au moins {{ limit }} caractères.",
+     * )
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\NotNull
      */
     private $trick;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
+     * @Assert\NotNull
      */
     private $user;
 

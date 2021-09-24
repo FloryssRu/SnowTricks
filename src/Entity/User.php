@@ -8,9 +8,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *      fields = "email",
+ *      message = "Adresse email déjà utilisée."
+ * )
+ * @UniqueEntity(
+ *      fields = "username",
+ *      message = "Nom d'utilisateur déjà utilisé."
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -23,27 +32,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @Assert\Lenght(
+     *      min = 2,
+     *      max = 180,
+     *      minMessage = "Votre nom dit contenir au moins {{ limit }} caractères.",
+     *      maxMessage = "Votre nom peut contenir au maximum {{ limit }} caractères."
+     * )
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique="true")
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @Assert\Email(
+     *      message = "Veuillez entrer une adresse email valide."
+     * )
      */
     private $email;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+     * @Assert\NotNull
+     * @Assert\Lenght(
+     *      min = 2,
+     *      max = 4096,
+     *      minMessage = "Votre mot de passe doit contenir {{ limit }} caractères minimum.",
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank
+     * @Assert\NotNull
      */
     private $roles = [];
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank
+     * @Assert\NotNull
      */
     private $isVerified;
 
