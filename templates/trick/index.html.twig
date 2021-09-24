@@ -12,9 +12,11 @@
         {% for trick in tricks %}
             <article>
                 <img>
-                <p><a href="#"></a></p>
-                <a href="#"><img></a>
-                <a href="#"><img></a>
+                <div>
+                    <p><a href="#">{{ trick.name }}</a></p>
+                    <a href="#"><img src="/img/modify.png" alt="Modifier"></a>
+                    <a href="#"><img src="/img/delete.png" alt="Supprimer"></a>
+                </div>
             </article>
         {% else %}
             <p>Aucun trick publié !</p>
