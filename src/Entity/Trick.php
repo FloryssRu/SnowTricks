@@ -30,8 +30,12 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255, unique="true")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le nom ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le nom ne doit pas être null."
+     * )
      * @Assert\Lenght(
      *      min = 2,
      *      max = 255,
@@ -43,8 +47,12 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255, unique="true")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le slug ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le slug ne doit pas être null."
+     * )
      * @Assert\Lenght(
      *      min = 2,
      *      max = 255
@@ -54,8 +62,12 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "La description ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "La description ne doit pas être null."
+     * )
      * @Assert\Lenght(
      *      min = 2,
      *      minMessage = "La description doit contenir {{ limit }} caractères minimum."
@@ -68,7 +80,9 @@ class Trick
      * @Assert\NotBlank(
      *      message = "Vous devez ajouter au moins 1 image."
      * )
-     * @Assert\NotNull
+     * @Assert\NotNull(
+     *      message = "Vous devez ajouter au moins une image."
+     * )
      */
     private $picture;
 
@@ -77,7 +91,9 @@ class Trick
      * @Assert\NotBlank(
      *      message = "Vous devez ajouter au moins 1 vidéo."
      * )
-     * @Assert\NotNull
+     * @Assert\NotNull(
+     *      message = "Vous devez ajouter au moins 1 vidéo."
+     * )
      * @Assert\Lenght(
      *      min = 10,
      *      minMessage = "Le texte doit contenir minimum une balise <embed> valide."
@@ -96,7 +112,9 @@ class Trick
      * @Assert\NotBlank(
      *      message = "Vous devez joindre la figure à un groupe."
      * )
-     * @Assert\NotNull
+     * @Assert\NotNull(
+     *      message = "Le groupe ne doit pas être vide."
+     * )
      */
     private $relatedGroup;
 

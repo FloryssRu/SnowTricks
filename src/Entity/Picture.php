@@ -24,16 +24,24 @@ class Picture
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le nom ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le nom ne doit pas être null."
+     * )
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="picture")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "L'image doit être reliée à un trick."
+     * )
+     * @Assert\NotNull(
+     *      message = "L'image doit être reliée à un trick."
+     * )
      */
     private $trick;
 

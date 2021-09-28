@@ -20,16 +20,26 @@ class Message
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\NotNull
-     * @Assert\Datetime
+     * @Assert\NotBlank(
+     *      message = "La date ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "La date ne doit pas être null."
+     * )
+     * @Assert\Datetime(
+     *      message = "La date doit être sous forme datetime."
+     * )
      */
     private $dateCreation;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le contenu ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le contenu ne doit pas être null."
+     * )
      * @Assert\Length(
      *      min = 2,
      *      minMessage = "Le contenu doit avoir au moins {{ limit }} caractères.",
@@ -40,16 +50,24 @@ class Message
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le message doit être relié à un trick."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le message doit être relié à un trick."
+     * )
      */
     private $trick;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le message doit être relié à un utilisateur."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le message doit être relié à un utilisateur."
+     * )
      */
     private $user;
 

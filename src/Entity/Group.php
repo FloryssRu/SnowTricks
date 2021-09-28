@@ -23,8 +23,12 @@ class Group
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le nom ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le nom ne doit pas être null."
+     * )
      */
     private $name;
 

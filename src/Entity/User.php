@@ -32,8 +32,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le nom d'utilisateur ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le nom d'utilisateur ne doit pas être null."
+     * )
      * @Assert\Lenght(
      *      min = 2,
      *      max = 180,
@@ -45,8 +49,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique="true")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "L'email ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "L'email ne doit pas être null."
+     * )
      * @Assert\Email(
      *      message = "Veuillez entrer une adresse email valide."
      * )
@@ -56,8 +64,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "Le mot de passe ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le mot de passe ne doit pas être null."
+     * )
      * @Assert\Lenght(
      *      min = 2,
      *      max = 4096,
@@ -68,15 +80,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "L'utilisateur doit avoir au moins 1 rôle."
+     * )
+     * @Assert\NotNull(
+     *      message = "Les rôles ne peuvent pas être null."
+     * )
      */
     private $roles = [];
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank
-     * @Assert\NotNull
+     * @Assert\NotBlank(
+     *      message = "La vérification de compte ne peut pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "La vérification de compte ne peut pas être null."
+     * )
      */
     private $isVerified;
 
