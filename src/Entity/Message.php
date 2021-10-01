@@ -15,6 +15,10 @@ class Message
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type = "integer",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $id;
 
@@ -29,6 +33,10 @@ class Message
      * @Assert\Datetime(
      *      message = "La date doit être sous forme datetime."
      * )
+     * @Assert\Type(
+     *     type = "datetime",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $dateCreation;
 
@@ -39,6 +47,10 @@ class Message
      * )
      * @Assert\NotNull(
      *      message = "Le contenu ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      * @Assert\Length(
      *      min = 2,
@@ -56,6 +68,7 @@ class Message
      * @Assert\NotNull(
      *      message = "Le message doit être relié à un trick."
      * )
+     * @Assert\Type("App\Entity\Trick")
      */
     private $trick;
 
@@ -68,6 +81,7 @@ class Message
      * @Assert\NotNull(
      *      message = "Le message doit être relié à un utilisateur."
      * )
+     * @Assert\Type("App\Entity\User")
      */
     private $user;
 

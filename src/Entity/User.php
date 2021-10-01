@@ -27,6 +27,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type = "integer",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $id;
 
@@ -37,6 +41,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * )
      * @Assert\NotNull(
      *      message = "Le nom d'utilisateur ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      * @Assert\Lenght(
      *      min = 2,
@@ -55,6 +63,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotNull(
      *      message = "L'email ne doit pas être null."
      * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      * @Assert\Email(
      *      message = "Veuillez entrer une adresse email valide."
      * )
@@ -69,6 +81,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * )
      * @Assert\NotNull(
      *      message = "Le mot de passe ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      * @Assert\Lenght(
      *      min = 2,
@@ -86,6 +102,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotNull(
      *      message = "Les rôles ne peuvent pas être null."
      * )
+     * @Assert\Type(
+     *     type = "array",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $roles = [];
 
@@ -97,11 +117,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotNull(
      *      message = "La vérification de compte ne peut pas être null."
      * )
+     * @Assert\Type(
+     *     type = "boolean",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $isVerified;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
+     * @Assert\Type("App\Entity\Message")
      */
     private $message;
 

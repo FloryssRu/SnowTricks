@@ -19,6 +19,10 @@ class Picture
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type = "integer",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $id;
 
@@ -29,6 +33,10 @@ class Picture
      * )
      * @Assert\NotNull(
      *      message = "Le nom ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
     private $name;
@@ -42,6 +50,7 @@ class Picture
      * @Assert\NotNull(
      *      message = "L'image doit être reliée à un trick."
      * )
+     * @Assert\Type("App\Entity\Trick")
      */
     private $trick;
 

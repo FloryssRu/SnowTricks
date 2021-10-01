@@ -18,6 +18,10 @@ class Group
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type = "integer",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $id;
 
@@ -29,11 +33,16 @@ class Group
      * @Assert\NotNull(
      *      message = "Le nom ne doit pas être null."
      * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="relatedGroup")
+     * @Assert\Type("App\Entity\Trick")
      */
     private $trick;
 
