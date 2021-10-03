@@ -8,9 +8,18 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *      fields = "email",
+ *      message = "Adresse email déjà utilisée."
+ * )
+ * @UniqueEntity(
+ *      fields = "username",
+ *      message = "Nom d'utilisateur déjà utilisé."
+ * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -18,37 +27,106 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type = "integer",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(
+     *      message = "Le nom d'utilisateur ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le nom d'utilisateur ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
+     * @Assert\Lenght(
+     *      min = 2,
+     *      max = 180,
+     *      minMessage = "Votre nom dit contenir au moins {{ limit }} caractères.",
+     *      maxMessage = "Votre nom peut contenir au maximum {{ limit }} caractères."
+     * )
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique="true")
+     * @Assert\NotBlank(
+     *      message = "L'email ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "L'email ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
+     * @Assert\Email(
+     *      message = "Veuillez entrer une adresse email valide."
+     * )
      */
     private $email;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(
+     *      message = "Le mot de passe ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le mot de passe ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
+     * @Assert\Lenght(
+     *      min = 2,
+     *      max = 4096,
+     *      minMessage = "Votre mot de passe doit contenir {{ limit }} caractères minimum.",
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="json")
+     * @Assert\NotBlank(
+     *      message = "L'utilisateur doit avoir au moins 1 rôle."
+     * )
+     * @Assert\NotNull(
+     *      message = "Les rôles ne peuvent pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "array",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $roles = [];
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank(
+     *      message = "La vérification de compte ne peut pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "La vérification de compte ne peut pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "boolean",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $isVerified;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
+     * @Assert\Type("App\Entity\Message")
      */
     private $message;
 

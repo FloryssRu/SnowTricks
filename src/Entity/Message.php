@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
@@ -14,28 +15,73 @@ class Message
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type = "integer",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(
+     *      message = "La date ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "La date ne doit pas être null."
+     * )
+     * @Assert\Datetime(
+     *      message = "La date doit être sous forme datetime."
+     * )
+     * @Assert\Type(
+     *     type = "datetime",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
      */
     private $dateCreation;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *      message = "Le contenu ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le contenu ne doit pas être null."
+     * )
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Le contenu doit avoir au moins {{ limit }} caractères.",
+     * )
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Le message doit être relié à un trick."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le message doit être relié à un trick."
+     * )
+     * @Assert\Type("App\Entity\Trick")
      */
     private $trick;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(
+     *      message = "Le message doit être relié à un utilisateur."
+     * )
+     * @Assert\NotNull(
+     *      message = "Le message doit être relié à un utilisateur."
+     * )
+     * @Assert\Type("App\Entity\User")
      */
     private $user;
 
