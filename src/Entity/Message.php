@@ -20,7 +20,7 @@ class Message
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -38,7 +38,7 @@ class Message
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $dateCreation;
+    private string $dateCreation;
 
     /**
      * @ORM\Column(type="text")
@@ -57,7 +57,7 @@ class Message
      *      minMessage = "Le contenu doit avoir au moins {{ limit }} caractères.",
      * )
      */
-    private $content;
+    private string $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="message")
@@ -70,7 +70,7 @@ class Message
      * )
      * @Assert\Type("App\Entity\Trick")
      */
-    private $trick;
+    private Trick $trick;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
@@ -83,7 +83,7 @@ class Message
      * )
      * @Assert\Type("App\Entity\User")
      */
-    private $user;
+    private User $user;
 
     public function getId(): ?int
     {

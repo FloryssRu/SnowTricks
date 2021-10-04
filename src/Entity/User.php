@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -54,7 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *      maxMessage = "Votre nom peut contenir au maximum {{ limit }} caractères."
      * )
      */
-    private $username;
+    private string $username;
 
     /**
      * @ORM\Column(type="string", length=255, unique="true")
@@ -72,7 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *      message = "Veuillez entrer une adresse email valide."
      * )
      */
-    private $email;
+    private string $email;
 
     /**
      * @var string The hashed password
@@ -93,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *      minMessage = "Votre mot de passe doit contenir {{ limit }} caractères minimum.",
      * )
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="json")
@@ -108,7 +108,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @ORM\Column(type="boolean")
@@ -123,13 +123,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $isVerified;
+    private bool $isVerified;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
      * @Assert\Type("App\Entity\Message")
      */
-    private $message;
+    private Collection $message;
 
     public function __construct()
     {
