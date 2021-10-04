@@ -25,7 +25,7 @@ class Picture
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -40,7 +40,7 @@ class Picture
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="picture")
@@ -53,7 +53,7 @@ class Picture
      * )
      * @Assert\Type("App\Entity\Trick")
      */
-    private $trick;
+    private Trick $trick;
 
     public function getId(): ?int
     {

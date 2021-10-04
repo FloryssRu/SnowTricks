@@ -23,7 +23,7 @@ class Group
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -38,13 +38,12 @@ class Group
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="relatedGroup")
-     * @Assert\Type("App\Entity\Trick")
      */
-    private $trick;
+    private Collection $trick;
 
     public function __construct()
     {

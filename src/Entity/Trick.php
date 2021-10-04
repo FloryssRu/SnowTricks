@@ -31,7 +31,7 @@ class Trick
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique="true")
@@ -52,7 +52,7 @@ class Trick
      *      maxMessage = "Le titre peut contenir {{ limit }} caractères maximum."
      * )
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=255, unique="true")
@@ -71,7 +71,7 @@ class Trick
      *      max = 255
      * )
      */
-    private $slug;
+    private string $slug;
 
     /**
      * @ORM\Column(type="text")
@@ -90,7 +90,7 @@ class Trick
      *      minMessage = "La description doit contenir {{ limit }} caractères minimum."
      * )
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true)
@@ -100,9 +100,8 @@ class Trick
      * @Assert\NotNull(
      *      message = "Vous devez ajouter au moins une image."
      * )
-     * @Assert\Type("App\Entity\Picture")
      */
-    private $picture;
+    private Collection $picture;
 
     /**
      * @ORM\Column(type="text")
@@ -121,13 +120,12 @@ class Trick
      *      minMessage = "Le texte doit contenir minimum une balise <embed> valide."
      * )
      */
-    private $tagsVideo;
+    private string $tagsVideo;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
-     * @Assert\Type("App\Entity\Message")
      */
-    private $message;
+    private Collection $message;
 
     /**
      * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="trick")
@@ -143,7 +141,7 @@ class Trick
      *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private $relatedGroup;
+    private Group $relatedGroup;
 
     public function __construct()
     {
