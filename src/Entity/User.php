@@ -127,7 +127,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
-     * @Assert\Type("App\Entity\Message")
      */
     private Collection $message;
 

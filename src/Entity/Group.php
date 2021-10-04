@@ -42,7 +42,6 @@ class Group
 
     /**
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="relatedGroup")
-     * @Assert\Type("App\Entity\Trick")
      */
     private Collection $trick;
 

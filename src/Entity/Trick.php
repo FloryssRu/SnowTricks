@@ -100,7 +100,6 @@ class Trick
      * @Assert\NotNull(
      *      message = "Vous devez ajouter au moins une image."
      * )
-     * @Assert\Type("App\Entity\Picture")
      */
     private Collection $picture;
 
@@ -125,7 +124,6 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
-     * @Assert\Type("App\Entity\Message")
      */
     private Collection $message;
 
