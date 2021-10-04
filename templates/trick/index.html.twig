@@ -5,7 +5,7 @@
 {% block body %}
     <header id="header" class="homepage">
         <h1>Accueil - SnowTricks</h1>
-        <a href="#tricks"><img src="/img/arrow_down.png" alt="descendre"></a>
+        <a id="arrow_down" class="arrow" href="#tricks"><img src="/img/arrow_down.png" alt="descendre"></a>
     </header>
     <section id="tricks">
         {% for trick in tricks %}
@@ -20,6 +20,6 @@
         {% else %}
             <p>Aucun trick publié !</p>
         {% endfor %}
-        <a href="#header"><img src="/img/arrow_up.png" alt="monter"></a>
     </section>
+    <a id="arrow_up" class="arrow" href="#header"><img src="/img/arrow_up.png" alt="monter"></a>
 {% endblock %}
