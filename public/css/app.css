@@ -1,0 +1,56 @@
+/* for all pages*/
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Gemunu Libre', sans-serif;
+}
+
+nav {
+    background-color : #1e3d58;
+    padding: 5px;
+    padding-right: 30px;
+}
+
+nav > ul {
+    list-style: none;
+    float: right;
+    margin-top: 35px;
+}
+
+nav > ul > li {
+    display: block;
+    float: left;
+    padding-left: 15px;
+}
+
+nav > ul > li > a {
+    color: white;
+    text-decoration: none;
+}
+
+header {
+    overflow: hidden;
+    height: 800px;
+}
+
+h1, h2, h3 {
+    font-family: 'Bebas Neue', cursive;
+}
+
+h1 {
+    position: relative;
+    top: 300px;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    text-shadow: black 2px 2px;
+}
+
+/* homepage */
+
+header.homepage {
+    background-image: url("/img/background_home.jpg");
+    background-repeat: none;
+    background-size: cover;
+}
