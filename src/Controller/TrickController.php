@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
@@ -41,9 +42,8 @@ class TrickController extends AbstractController
 
             $imageFile = $form->get('image')->getData();
             $handlerPictures->savePictures($imageFile);
-
             
-            $trick = $form->getData();dd($trick);
+            $trick = $form->getData();
             $em->persist($trick);
             $em->flush();
 
