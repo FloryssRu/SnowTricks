@@ -137,7 +137,7 @@ class Trick
      *      message = "Le groupe ne doit pas être vide."
      * )
      * @Assert\Type(
-     *      type = "string",
+     *      type = "object",
      *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */

@@ -39,13 +39,31 @@ h1, h2, h3 {
 }
 
 h1 {
-    position: relative;
-    top: 300px;
     text-align: center;
     font-size: 50px;
     color: white;
-    text-shadow: black 2px 2px;
+    text-shadow: black 0px 0px 5px;
 }
+
+form {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label, input, textarea, select {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+label, input, textarea {
+    width: 100%;
+}
+
+textarea {
+    height: 80px;
+}
+
 
 /* homepage */
 
@@ -53,6 +71,11 @@ header.homepage {
     background-image: url("/img/background_home.jpg");
     background-repeat: none;
     background-size: cover;
+}
+
+header.homepage > h1 {
+    position: relative;
+    top: 300px;
 }
 
 .arrow {
