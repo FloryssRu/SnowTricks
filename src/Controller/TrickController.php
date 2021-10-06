@@ -40,10 +40,10 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $imageFile = $form->get('image')->getData();
-            $handlerPictures->savePictures($imageFile);
-            
+            $handlerPictures->savePictures($form, $slugger);
+
             $trick = $form->getData();
+
             $em->persist($trick);
             $em->flush();
 

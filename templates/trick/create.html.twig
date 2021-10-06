@@ -2,11 +2,6 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block javascripts %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/jquery/add-collection-widget.js"></script>
-{% endblock %}
-
 {% block body %}
     <h1>Ajouter une nouvelle figure</h1>
     <section>
@@ -16,7 +11,7 @@
             <div id="picture-fields-list"
                 data-prototype="{{ form_widget(form.picture.vars.prototype)|e }}"
                 data-widget-tags="{{ '<p></p>'|e }}"
-                data-widget-counter="{{ form.picture|length }}">
+                data-widget-counter="2">
 
                 {{ form_row(form.picture) }}
 
@@ -31,6 +26,9 @@
             <input type="submit" value="Ajouter !">
         {{ form_end(form) }}
     </section>
+{% endblock %}
 
-    
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/jquery/add-collection-widget.js"></script>
 {% endblock %}

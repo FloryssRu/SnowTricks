@@ -30,8 +30,7 @@ class TrickType extends AbstractType
                 'label' => "Images de la figure",
                 'entry_options' => ['label' => false],
                 'by_reference' => false,
-                'allow_add' => true,
-                'allow_delete' => true
+                'allow_add' => true
             ])
             ->add('tagsVideo', TextareaType::class, [
                 'label' => 'Balise(s) <embed> de vidéos en ligne'
