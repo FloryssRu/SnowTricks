@@ -28,7 +28,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/figure/creation", methods={"GET", "POST"})
+     * @Route("/figure/creation", name="app_trick_create", methods={"GET", "POST"})
      */
     public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures): Response
     {
@@ -48,7 +48,7 @@ class TrickController extends AbstractController
             $em->persist($trick);
             $em->flush();
 
-            $this->addflash('success', 'La figure a bien été ajoutée !');
+            $this->addflash('success', 'La figure a bien été ajoutée.');
 
             return $this->redirectToRoute('app_trick_home');
         }
@@ -59,10 +59,34 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", methods={"GET"})
+     * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET"})
      */
-    public function show(): Response
+    public function show(TrickRepository $TrickRepo, string $slug): Response
     {
+        $trick = $TrickRepo->findOneBy(['slug' => $slug]);
 
+        $form = $this->createForm(MessageType::class, $trick);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick = $form->getData();
+
+            $handlerPictures->savePictures($request, $trick, $slugger);
+
+            $trick->setSlug($slugger->slug($trick->getName()));
+
+            $em->persist($trick);
+            $em->flush();
+
+            $this->addflash('success', 'Votre message a bien été ajouté.');
+
+            return $this->redirectToRoute('app_trick_home');
+        }
+
+        
+        return $this->render('trick/show.html.twig', [
+            'trick' => $trick
+        ]);
     }
 }

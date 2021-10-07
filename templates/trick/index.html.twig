@@ -7,12 +7,12 @@
         <h1>Accueil - SnowTricks</h1>
         <a id="arrow_down" class="arrow" href="#tricks"><img src="/img/arrow_down.png" alt="descendre"></a>
     </header>
-    <section id="tricks">
+    <section id="tricks" class="flexbox">
         {% for trick in tricks %}
             <article>
-                <img src="/img_tricks/{{ trick.picture.elements.name | first }}" alt="image d'une figure">
+                <img src="/img_tricks/#{# trick.picture.elements.name | first #}" alt="image d'une figure">
                 <div>
-                    <p><a href="{{ path('app_trick_show'), {slug: trick.slug} }}">{{ trick.name }}</a></p>
+                    <p><a href="{{ path('app_trick_show', {slug: trick.slug}) }}">{{ trick.name }}</a></p>
                     <a href="#"><img src="/img/modify.png" alt="Modifier"></a>
                     <a href="#"><img src="/img/delete.png" alt="Supprimer"></a>
                 </div>
