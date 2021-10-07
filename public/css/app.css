@@ -77,8 +77,24 @@ textarea {
     align-content: space-around;
 }
 
-.flexbox > img {
-    width: 100px;
+.flexbox-tight {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+    align-items: center;
+}
+
+.flexbox-tight > img {
+    width: 200px;
+}
+
+footer {
+    color: white;
+    background-color: #1e3d58;
+    height: 50px;
+    padding: 10px;
 }
 
 
@@ -167,6 +183,8 @@ header.trick-page {
     margin-top: 100px;
     margin-left: 15%;
     border: 2px black solid;
+    background-color: white;
+    margin-bottom: 150px;
 }
 
 .top200 {

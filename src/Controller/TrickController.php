@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Picture;
+use App\Entity\Message;
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Form\MessageType;
 use App\Repository\TrickRepository;
 use App\Services\HandlerPictures;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,22 +62,27 @@ class TrickController extends AbstractController
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET"})
      */
-    public function show(TrickRepository $TrickRepo, string $slug): Response
+    public function show(Request $request, EntityManagerInterface $em, TrickRepository $TrickRepo, string $slug): Response
     {
         $trick = $TrickRepo->findOneBy(['slug' => $slug]);
 
-        $form = $this->createForm(MessageType::class, $trick);
+        $message = new Message();
+
+        $form = $this->createForm(MessageType::class, $message);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick = $form->getData();
+            $message = $form->getData();
 
-            $handlerPictures->savePictures($request, $trick, $slugger);
+            $message->setDateCreation(date("Y-m-d H:i:s"));
 
-            $trick->setSlug($slugger->slug($trick->getName()));
+            //attribuer le message à l'utilisateur connecté
+            $message->setUser("user");
 
-            $em->persist($trick);
+            $message->setTrick($trick);
+
+            $em->persist($message);
             $em->flush();
 
             $this->addflash('success', 'Votre message a bien été ajouté.');
@@ -84,9 +90,9 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_trick_home');
         }
 
-        
         return $this->render('trick/show.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
+            'form' => $form->createView()
         ]);
     }
 }

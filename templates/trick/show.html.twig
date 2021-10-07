@@ -13,7 +13,7 @@
             <h1 class="relative top200">{{ trick.name }}</h1>
         </header>
         <section class="margin-y30">
-            <div class="flexbox">
+            <div class="flexbox-tight">
                 {% for picture in trick.picture %}
                     {# trick.picture #}
                 {% endfor %}
@@ -50,6 +50,13 @@
                 {{ form_widget(form) }}
                 <input type="submit" value="Envoyer">
             {{ form_end(form) }}
+            <hr>
+            <div class="width50">
+                {% for message in trick.message %}
+                {% else %}
+                    <p>Aucun message posté pour l'instant.</p>
+                {% endfor %}
+            </div>
         </section>
     </div>
 {% endblock %}
