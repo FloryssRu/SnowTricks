@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Picture;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -45,7 +46,7 @@ class Trick
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      max = 255,
      *      minMessage = "Le titre doit contenir {{ limit }} caractères minimum.",
@@ -66,7 +67,7 @@ class Trick
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      max = 255
      * )
@@ -85,23 +86,13 @@ class Trick
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      minMessage = "La description doit contenir {{ limit }} caractères minimum."
      * )
      */
     private string $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
-     * @Assert\NotBlank(
-     *      message = "Vous devez ajouter au moins 1 image."
-     * )
-     * @Assert\NotNull(
-     *      message = "Vous devez ajouter au moins une image."
-     * )
-     */
-    private Collection $picture;
 
     /**
      * @ORM\Column(type="text")
@@ -115,7 +106,7 @@ class Trick
      *      type = "string",
      *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 10,
      *      minMessage = "Le texte doit contenir minimum une balise <embed> valide."
      * )
@@ -143,10 +134,15 @@ class Trick
      */
     private Group $relatedGroup;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick")
+     */
+    private $pictures;
+
     public function __construct()
     {
-        $this->picture = new ArrayCollection();
         $this->message = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,35 +186,7 @@ class Trick
         return $this;
     }
 
-    /**
-     * @return Collection|Picture[]
-     */
-    public function getPicture(): Collection
-    {
-        return $this->picture;
-    }
-
-    public function addPicture(Picture $picture): self
-    {
-        if (!$this->picture->contains($picture)) {
-            $this->picture[] = $picture;
-            $picture->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->picture->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getTrick() === $this) {
-                $picture->setTrick(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function getTagsVideo(): ?string
     {
@@ -272,5 +240,13 @@ class Trick
         $this->relatedGroup = $relatedGroup;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
     }
 }

@@ -109,10 +109,10 @@ class TrickController extends AbstractController
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, EntityManagerInterface $em, TrickRepository $TrickRepo, string $slug): Response
+    public function show(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
-        $trick = $TrickRepo->findOneBy(['slug' => $slug]);
-
+        //$trick = $TrickRepo->findBy(['slug' => $slug]);
+dd($trick);
         $message = new Message();
 
         $form = $this->createForm(MessageType::class, $message);

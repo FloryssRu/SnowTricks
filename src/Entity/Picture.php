@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trick;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=PictureRepository::class)
  * @UniqueEntity(
- *      fields = {"name", "trick"}
+ *      fields = {"name", "trick"},
  *      message = "Afin d'éviter une erreur d'affichage, veuillez renommer l'image."
  * )
  */
@@ -43,7 +44,7 @@ class Picture
     private string $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="picture")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
      *      message = "L'image doit être reliée à un trick."

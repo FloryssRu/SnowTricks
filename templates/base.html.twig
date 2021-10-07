@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!--Links for font-family-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,11 +12,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
         <!--end-->
 
-        <link href="/css/app.css" rel="stylesheet">
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            <link href="/css/app.css" rel="stylesheet">
         {% endblock %}
 
         {% block javascripts %}
