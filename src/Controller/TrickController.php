@@ -17,18 +17,18 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/", name="app_trick_home")
+     * @Route("/", name="app_trick_home", methods={"GET"})
      */
     public function index(TrickRepository $repo): Response
     {
-        $tricks = $repo->findAll();
+        $tricks = $repo->findAll(); //dd($tricks[1]);
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks
         ]);
     }
 
     /**
-     * @Route("/figure/creation")
+     * @Route("/figure/creation", methods={"GET", "POST"})
      */
     public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures): Response
     {
@@ -39,19 +39,30 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $handlerPictures->savePictures($form, $slugger);
-
             $trick = $form->getData();
+
+            $handlerPictures->savePictures($request, $trick, $slugger);
+
+            $trick->setSlug($slugger->slug($trick->getName()));
 
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('app_trick_index');
+            $this->addflash('success', 'La figure a bien été ajoutée !');
+
+            return $this->redirectToRoute('app_trick_home');
         }
 
         return $this->render('trick/create.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", methods={"GET"})
+     */
+    public function show(): Response
+    {
+
     }
 }

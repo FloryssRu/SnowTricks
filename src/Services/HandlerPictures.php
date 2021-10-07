@@ -2,38 +2,41 @@
 
 namespace App\Services;
 
-use Symfony\Component\Form\FormInterface;
+use App\Controller\TrickController;
+use App\Entity\Trick;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class HandlerPictures
+class HandlerPictures extends TrickController
 {
-    public function savePictures(FormInterface $form, SluggerInterface $slugger)
+    public function savePictures(Request $request, Trick $trick, SluggerInterface $slugger)
     {
-        //pour chaque picture ajoutée
-        foreach ($form->getData()->getPicture()->toArray() as $attribute => $picture) {
-            dd($picture);
+        for ($i = 1; $i > 0; $i++) {
 
-            //on récupère l'image
-            $imageFile = $form->get('picture')->getData();
+            if (isset($request->files->all()['trick']['picture'][$i]['picturefile'])) {
+                
+                $picturefile = $request->files->all()['trick']['picture'][$i]['picturefile'];
 
-            if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
+                $originalFilename = pathinfo($picturefile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-    
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$picturefile->guessExtension();
+        
                 try {
-                    $imageFile->move(
-                        $this->getParameter('app.image.directory'),
+                    $picturefile->move(
+                        $this->getParameter('app.pictures.directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-    
-                $unite->setImageFilename($newFilename);
-            }
+                $trick->getPicture()->toArray()[$i-1]->setName($newFilename);
 
+                unset($picturefile);
+                
+            } else {
+                break;
+            }
         }
     }
 }
