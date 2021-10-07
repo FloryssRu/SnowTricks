@@ -13,7 +13,7 @@
                 <img src="/img_tricks/#{# trick.picture.elements.name | first #}" alt="image d'une figure">
                 <div>
                     <p><a href="{{ path('app_trick_show', {slug: trick.slug}) }}">{{ trick.name }}</a></p>
-                    <a href="#"><img src="/img/modify.png" alt="Modifier"></a>
+                    <a href="{{ path('app_trick_update', {slug: trick.slug}) }}"><img src="/img/modify.png" alt="Modifier"></a>
                     <a href="#"><img src="/img/delete.png" alt="Supprimer"></a>
                 </div>
             </article>

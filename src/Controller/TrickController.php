@@ -60,6 +60,38 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
+     */
+    public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, TrickRepository $TrickRepo, string $slug): Response
+    {
+        $trick = $TrickRepo->findOneBy(['slug' => $slug]);
+
+        $form = $this->createForm(TrickType::class, $trick);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick = $form->getData();
+
+            $handlerPictures->savePictures($request, $trick, $slugger);
+
+            $trick->setSlug($slugger->slug($trick->getName()));
+
+            $em->persist($trick);
+            $em->flush();
+
+            $this->addflash('success', 'La figure a bien été modifiée.');
+
+            return $this->redirectToRoute('app_trick_home');
+        }
+
+        return $this->render('trick/update.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET"})
      */
     public function show(Request $request, EntityManagerInterface $em, TrickRepository $TrickRepo, string $slug): Response
