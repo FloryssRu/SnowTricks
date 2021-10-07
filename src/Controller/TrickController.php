@@ -92,7 +92,22 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET"})
+     * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"GET"})
+     */
+    public function delete(EntityManagerInterface $em, TrickRepository $TrickRepo, int $id): Response
+    {
+        $trick = $TrickRepo->find($id);
+
+        $em->remove($trick);
+        $em->flush();
+
+        $this->addflash('success', 'Le trick a bien été supprimé.');
+
+        return $this->redirectToRoute('app_trick_home');
+    }
+
+    /**
+     * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
      */
     public function show(Request $request, EntityManagerInterface $em, TrickRepository $TrickRepo, string $slug): Response
     {

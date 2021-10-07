@@ -14,7 +14,7 @@
                 <div>
                     <p><a href="{{ path('app_trick_show', {slug: trick.slug}) }}">{{ trick.name }}</a></p>
                     <a href="{{ path('app_trick_update', {slug: trick.slug}) }}"><img src="/img/modify.png" alt="Modifier"></a>
-                    <a href="#"><img src="/img/delete.png" alt="Supprimer"></a>
+                    <a href="{{ path('app_trick_delete', {id: trick.id}) }}" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')"><img src="/img/delete.png" alt="Supprimer"></a>
                 </div>
             </article>
         {% else %}
