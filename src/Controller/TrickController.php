@@ -112,7 +112,7 @@ class TrickController extends AbstractController
     public function show(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
         //$trick = $TrickRepo->findBy(['slug' => $slug]);
-dd($trick);
+
         $message = new Message();
 
         $form = $this->createForm(MessageType::class, $message);

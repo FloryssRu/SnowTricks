@@ -58,10 +58,12 @@ class Trick
     /**
      * @ORM\Column(type="string", length=255, unique="true")
      * @Assert\NotBlank(
-     *      message = "Le slug ne doit pas être vide."
+     *      message = "Le slug ne doit pas être vide.",
+     *      groups = "not-in-create-form"
      * )
      * @Assert\NotNull(
-     *      message = "Le slug ne doit pas être null."
+     *      message = "Le slug ne doit pas être null.",
+     *      groups = "not-in-create-form"
      * )
      * @Assert\Type(
      *     type = "string",
@@ -93,6 +95,16 @@ class Trick
      */
     private string $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist"})
+     * @Assert\NotBlank(
+     *      message = "Vous devez ajouter au moins 1 image."
+     * )
+     * @Assert\NotNull(
+     *      message = "Vous devez ajouter au moins une image."
+     * )
+     */
+    private Collection $pictures;
 
     /**
      * @ORM\Column(type="text")
@@ -133,11 +145,6 @@ class Trick
      * )
      */
     private Group $relatedGroup;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist"})
-     */
-    private $pictures;
 
     public function __construct()
     {
@@ -186,7 +193,35 @@ class Trick
         return $this;
     }
 
-    
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getTrick() === $this) {
+                $picture->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function getTagsVideo(): ?string
     {
@@ -238,36 +273,6 @@ class Trick
     public function setRelatedGroup(?Group $relatedGroup): self
     {
         $this->relatedGroup = $relatedGroup;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Picture[]
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(Picture $picture): self
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-            $picture->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): self
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getTrick() === $this) {
-                $picture->setTrick(null);
-            }
-        }
 
         return $this;
     }
