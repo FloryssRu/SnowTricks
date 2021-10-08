@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <header id="header" class="homepage">
+        <h1>Accueil - SnowTricks</h1>
+        <a id="arrow_down" class="arrow" href="#tricks"><img src="/img/arrow_down.png" alt="descendre"></a>
+    </header>
+    <section id="tricks">
+        {% for trick in tricks %}
+            <article>
+                <img src="/img_tricks/#" alt="image d'une figure">
+                <div>
+                    <p><a href="#">{{ trick.name }}</a></p>
+                    <a href="#"><img src="/img/modify.png" alt="Modifier"></a>
+                    <a href="#"><img src="/img/delete.png" alt="Supprimer"></a>
+                </div>
+            </article>
+        {% else %}
+            <p>Aucun trick publié !</p>
+        {% endfor %}
+    </section>
+    <a id="arrow_up" class="arrow" href="#header"><img src="/img/arrow_up.png" alt="monter"></a>
+{% endblock %}

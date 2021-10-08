@@ -2,7 +2,16 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
+
+        <!--Links for font-family-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <!--end-->
+
+        <link href="/css/app.css" rel="stylesheet">
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -14,6 +23,23 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            <img src="/img/icon.png" alt="icon">
+            <ul>
+                <li><a href="{{ path('app_trick_home') }}">Accueil</a></li>
+                <li><a href="{{ path('app_trick_home') }}#tricks">Figures</a></li>
+                <li><a href="#">Ajouter une figure</a></li>
+                <li><a href="#">S'inscrire</a></li>
+                <li><a href="#">Se connecter</a></li>
+                <li><a href="#">Mon compte</a></a>
+                <li><a href="#">Se déconnecter</a></li>
+            </ul>
+        </nav>
+
         {% block body %}{% endblock %}
+
+        <footer>
+            <p>Copyright &#169; 2021</p>
+        </footer>
     </body>
 </html>
