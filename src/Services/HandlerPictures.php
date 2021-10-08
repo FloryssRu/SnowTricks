@@ -14,9 +14,9 @@ class HandlerPictures extends TrickController
     {
         for ($i = 1; $i > 0; $i++) {
 
-            if (isset($request->files->all()['trick']['picture'][$i]['picturefile'])) {
+            if (isset($request->files->all()['trick']['pictures'][$i]['picturefile'])) {
                 
-                $picturefile = $request->files->all()['trick']['picture'][$i]['picturefile'];
+                $picturefile = $request->files->all()['trick']['pictures'][$i]['picturefile'];
 
                 $originalFilename = pathinfo($picturefile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
@@ -30,7 +30,7 @@ class HandlerPictures extends TrickController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
-                $trick->getPicture()->toArray()[$i-1]->setName($newFilename);
+                $trick->getPictures()->toArray()[$i-1]->setName($newFilename);
 
                 unset($picturefile);
                 

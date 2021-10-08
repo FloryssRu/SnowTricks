@@ -135,7 +135,7 @@ class Trick
     private Group $relatedGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist"})
      */
     private $pictures;
 
@@ -248,5 +248,27 @@ class Trick
     public function getPictures(): Collection
     {
         return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getTrick() === $this) {
+                $picture->setTrick(null);
+            }
+        }
+
+        return $this;
     }
 }

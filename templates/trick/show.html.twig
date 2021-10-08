@@ -14,10 +14,8 @@
         </header>
         <section class="margin-y30">
             <div class="flexbox-tight">
-                {{ dump(trick.picture) }}
-                {% for picture in trick.picture %}
-                    
-                    {#<img src="{{ asset("/img-tricks/" ~ trick.picture.name) }}" alt="image de la figure">#}
+                {% for picture in trick.pictures %}
+                    <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                 {% endfor %}
                 {# trick.tagsVideo #}
 

@@ -16,16 +16,13 @@ class TrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $group = new Group();
-        $groups = ['le meilleur groupe' => $group];
-        
         $builder
             ->add('name', TextType::class, [
                 'attr' => ['autofocus' => true],
                 'label' => 'Nom de la figure'
             ])
             ->add('description', TextareaType::class)
-            ->add('picture', CollectionType::class, [
+            ->add('pictures', CollectionType::class, [
                 'entry_type' => PicturesType::class,
                 'label' => "Images de la figure",
                 'entry_options' => ['label' => false],

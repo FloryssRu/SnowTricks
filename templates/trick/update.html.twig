@@ -9,16 +9,16 @@
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
             <p>Images actuelles</p>
-            {% for picture in trick.picture %}
-                <img alt="image de la figure" src="/img-tricks/#{# trick.picture.name #}">
+            {% for picture in trick.pictures %}
+                <img alt="image de la figure" src="/img-tricks/#{# picture.name #}">
             {% endfor %}
             <div id="picture-fields-list"
-                data-prototype="{{ form_widget(form.picture.vars.prototype)|e }}"
+                data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}"
                 data-widget-tags="{{ '<p></p>'|e }}"
-                data-widget-counter="{{ form.picture|length }}">
+                data-widget-counter="{{ form.pictures|length }}">
                 <p></p>
 
-                {{ form_row(form.picture) }}
+                {{ form_row(form.pictures) }}
 
             </div>
 

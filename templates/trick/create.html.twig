@@ -9,15 +9,15 @@
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
             <div id="picture-fields-list"
-                data-prototype="{{ form_widget(form.picture.vars.prototype)|e }}"
+                data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}"
                 data-widget-tags="{{ '<p></p>'|e }}"
                 data-widget-counter="2">
 
-                {{ form_row(form.picture) }}
-                <div id="trick_picture_1">
+                {{ form_row(form.pictures) }}
+                <div id="trick_pictures_1">
                     <div>
-                        <label for="trick_picture_1_picturefile" class="required">Image obligatoire</label>
-                        <input type="file" id="trick_picture_1_picturefile" name="trick[picture][1][picturefile]" required>
+                        <label for="trick_pictures_1_picturefile" class="required">Image obligatoire</label>
+                        <input type="file" id="trick_pictures_1_picturefile" name="trick[pictures][1][picturefile]" required>
                     </div>
                 </div>
 
