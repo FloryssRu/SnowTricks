@@ -226,6 +226,11 @@ div.info {
     color: white;
 }
 
+.iframe {
+    width: 150px;
+    height: 100px;
+}
+
 /* update trick */
 
 .img-update-trick {

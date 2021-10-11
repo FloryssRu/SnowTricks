@@ -17,8 +17,7 @@
                 {% for picture in trick.pictures %}
                     <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                 {% endfor %}
-                {{ trick.tagsVideo }}
-
+                {{ trick.tagsVideo | raw }}
             </div>
         </section>
         <section class="margin-y30">
@@ -27,14 +26,16 @@
             </div>
             <div class="flexbox width50">
                 <div class="info">
-                    <p>la date de publication</p>
+                    <p>Créé le {{ trick.createdAt|date('Y-m-d H:i:s') }}</p>
                 </div>
                 <div class="info">
                     <p>{{ trick.relatedGroup.name }}</p>
                 </div>
-                <div class="info">
-                    <p>la date de modification</p>
-                </div>
+                {% if trick.modifiedAt %}
+                    <div class="info">
+                        <p>Modifié le {{ trick.modifiedAt|date('Y-m-d H:i:s') }}</p>
+                    </div>
+                {% endif %}
             </div>
         </section>
         <hr>

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use DateTime;
 
 class TrickController extends AbstractController
 {
@@ -45,6 +46,7 @@ class TrickController extends AbstractController
             $handlerPictures->savePictures($request, $trick, $slugger);
 
             $trick->setSlug($slugger->slug($trick->getName()));
+            $trick->setCreatedAt(new DateTime());
 
             $em->persist($trick);
             $em->flush();
@@ -75,6 +77,7 @@ class TrickController extends AbstractController
             $handlerPictures->savePictures($request, $trick, $slugger);
 
             $trick->setSlug($slugger->slug($trick->getName()));
+            $trick->setModifiedAt(new DateTime());
 
             $em->persist($trick);
             $em->flush();

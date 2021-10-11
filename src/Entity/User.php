@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      max = 180,
      *      minMessage = "Votre nom dit contenir au moins {{ limit }} caractères.",
@@ -87,7 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      max = 4096,
      *      minMessage = "Votre mot de passe doit contenir {{ limit }} caractères minimum.",
@@ -129,6 +129,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
      */
     private Collection $message;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Type(
+     *      type = "string",
+     *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
+     */
+    private ?string $pictureName;
 
     public function __construct()
     {
@@ -269,6 +278,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $message->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(?string $pictureName): self
+    {
+        $this->pictureName = $pictureName;
 
         return $this;
     }
