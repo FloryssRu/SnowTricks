@@ -14,13 +14,15 @@
                 data-widget-counter="2">
 
                 {{ form_row(form.pictures) }}
-                <div id="trick_pictures_1">
-                    <div>
-                        <label for="trick_pictures_1_picturefile" class="required">Image obligatoire</label>
-                        <input type="file" id="trick_pictures_1_picturefile" name="trick[pictures][1][picturefile]" required>
+                
+                {% if form.vars.valid %}
+                    <div id="trick_pictures_1">
+                        <div>
+                            <label for="trick_pictures_1_picturefile" class="required">Image obligatoire</label>
+                            <input type="file" id="trick_pictures_1_picturefile" name="trick[pictures][1][picturefile]" required>
+                        </div>
                     </div>
-                </div>
-
+                {% endif %}
             </div>
 
             <button type="button" class="add-another-collection-widget margin-y30" data-list-selector="#pictures-fields-list">
