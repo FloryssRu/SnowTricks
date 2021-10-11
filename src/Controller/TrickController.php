@@ -62,10 +62,9 @@ class TrickController extends AbstractController
     /**
      * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
      */
-    public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, TrickRepository $TrickRepo, string $slug): Response
+    public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
     {
-        $trick = $TrickRepo->findOneBy(['slug' => $slug]);
-
+        $trick->removeAllPictures();
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);

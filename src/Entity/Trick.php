@@ -223,6 +223,12 @@ class Trick
         return $this;
     }
 
+    public function removeAllPictures(): self
+    {
+        $this->pictures->clear();
+        return $this;
+    }
+
     public function getTagsVideo(): ?string
     {
         return $this->tagsVideo;

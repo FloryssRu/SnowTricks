@@ -225,3 +225,11 @@ div.info {
     padding-right: 15px;
     color: white;
 }
+
+/* update trick */
+
+.img-update-trick {
+    width: 150px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}

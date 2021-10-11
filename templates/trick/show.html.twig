@@ -17,15 +17,7 @@
                 {% for picture in trick.pictures %}
                     <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                 {% endfor %}
-                {# trick.tagsVideo #}
-
-                {# pour tester #}
-
-                
-                <img src="/img/background_home.jpg" alt="image de la figure">
-                <img src="/img/background_home.jpg" alt="image de la figure">
-                <embed src="https://www.youtube.com/watch?v=tzsqAjJnMdA">
-                <embed src="https://www.dailymotion.com/video/xc5btm">
+                {{ trick.tagsVideo }}
 
             </div>
         </section>

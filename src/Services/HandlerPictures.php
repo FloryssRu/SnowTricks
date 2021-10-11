@@ -15,13 +15,13 @@ class HandlerPictures extends TrickController
         for ($i = 1; $i > 0; $i++) {
 
             if (isset($request->files->all()['trick']['pictures'][$i]['picturefile'])) {
-                
+
                 $picturefile = $request->files->all()['trick']['pictures'][$i]['picturefile'];
 
                 $originalFilename = pathinfo($picturefile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$picturefile->guessExtension();
-        
+
                 try {
                     $picturefile->move(
                         $this->getParameter('app.pictures.directory'),
@@ -33,7 +33,7 @@ class HandlerPictures extends TrickController
                 $trick->getPictures()->toArray()[$i-1]->setName($newFilename);
 
                 unset($picturefile);
-                
+
             } else {
                 break;
             }
