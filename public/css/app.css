@@ -90,6 +90,20 @@ textarea {
     width: 200px;
 }
 
+.buttonlink {
+    display: inline;
+}
+
+.buttonlink > button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.icon {
+    width: 20px;
+}
+
 footer {
     color: white;
     background-color: #1e3d58;
@@ -140,8 +154,28 @@ section#tricks {
 
 article {
     background-color: #43b0f1;
-    padding: 30px;
     border-radius: 5px 5px;
+}
+
+article > div:nth-child(1) {
+    width: 250px;
+    height: 150px;
+    overflow: hidden;
+}
+
+article > div:nth-child(2) {
+    padding: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+article > div:nth-child(2) > p {
+    display: inline-block;
+    width: 120px;
+}
+
+.img_trick {
+    width: 100%;
 }
 
 /* Trick unique page */

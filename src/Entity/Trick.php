@@ -96,7 +96,7 @@ class Trick
     private string $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist"}, orphanRemoval=true)
      * @Assert\NotBlank(
      *      message = "Vous devez ajouter au moins 1 image."
      * )

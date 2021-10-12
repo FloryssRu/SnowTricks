@@ -26,14 +26,14 @@
             </div>
             <div class="flexbox width50">
                 <div class="info">
-                    <p>Créé le {{ trick.createdAt|date('Y-m-d H:i:s') }}</p>
+                    <p>Créé le {{ trick.createdAt|date('d/m/Y, à H:i:s') }}</p>
                 </div>
                 <div class="info">
                     <p>{{ trick.relatedGroup.name }}</p>
                 </div>
                 {% if trick.modifiedAt %}
                     <div class="info">
-                        <p>Modifié le {{ trick.modifiedAt|date('Y-m-d H:i:s') }}</p>
+                        <p>Modifié le {{ trick.modifiedAt|date('d/m/Y, à H:i:s') }}</p>
                     </div>
                 {% endif %}
             </div>

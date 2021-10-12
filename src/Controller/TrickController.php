@@ -62,12 +62,14 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
+     * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "PUT"})
      */
     public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
     {
         $trick->removeAllPictures();
-        $form = $this->createForm(TrickType::class, $trick);
+        $form = $this->createForm(TrickType::class, $trick, [
+            'method' => 'PUT'
+        ]);
 
         $form->handleRequest($request);
 
@@ -94,14 +96,14 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"GET"})
+     * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"DELETE"})
      */
-    public function delete(EntityManagerInterface $em, TrickRepository $TrickRepo, int $id): Response
+    public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
-        $trick = $TrickRepo->find($id);
-
-        $em->remove($trick);
-        $em->flush();
+        if ($this->isCsrfTokenValid('trick_delete_' . $trick->getId(), $request->request->get('csrf_token'))) {
+            $em->remove($trick);
+            $em->flush();
+        }
 
         $this->addflash('success', 'Le trick a bien été supprimé.');
 
@@ -113,8 +115,6 @@ class TrickController extends AbstractController
      */
     public function show(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
-        //$trick = $TrickRepo->findBy(['slug' => $slug]);
-
         $message = new Message();
 
         $form = $this->createForm(MessageType::class, $message);
