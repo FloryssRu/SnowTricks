@@ -25,13 +25,13 @@
                 {% endif %}
             </div>
 
-            <button type="button" class="add-another-collection-widget margin-y30" data-list-selector="#pictures-fields-list">
+            <button type="button" class="add-another-collection-widget margin-y30 tiny-button-blue" data-list-selector="#pictures-fields-list">
                 Ajouter une photo
             </button>
             
             {{ form_row(form.tagsVideo) }}
             {{ form_row(form.relatedGroup) }}
-            <input type="submit" value="Ajouter !">
+            <input type="submit" value="Ajouter !" class="button-blue">
         {{ form_end(form) }}
     </section>
 {% endblock %}

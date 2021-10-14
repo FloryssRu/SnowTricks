@@ -5,7 +5,8 @@
 {% block body %}
     <img src="/img/gradient_blue.png" class="width100 absolute z-index-2">
     <div class="main-content">
-        <header class="trick-page" style='background-image: url("/img/background_home.jpg{##}");;'>
+        {% set pictureHeader = trick.pictures.first() %}
+        <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
             <div class="float-right back-white border-black inline p10">
                 <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
                     <img src="/img/modify.png" alt="Modifier" class="icon">
@@ -50,7 +51,7 @@
         <section class="margin-y30">
             {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <input type="submit" value="Envoyer">
+                <input type="submit" value="Envoyer" class="button-blue margin-b30">
             {{ form_end(form) }}
             <hr>
             <div class="width50">

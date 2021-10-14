@@ -15,7 +15,7 @@
                     <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image d'une figure" class="img_trick">
                 </div>
                 <div>
-                    <p><a href="{{ path('app_trick_show', {slug: trick.slug}) }}">{{ trick.name }}</a></p>
+                    <p><a href="{{ path('app_trick_show', {slug: trick.slug}) }}" class="link">{{ trick.name }}</a></p>
                     <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
                         <img src="/img/modify.png" alt="Modifier" class="icon">
                     </a>

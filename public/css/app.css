@@ -62,6 +62,40 @@ label, input, textarea {
 
 textarea {
     height: 80px;
+    font-family: 'Arial', sans-serif;
+}
+
+select {
+    min-width: 200px;
+    border-radius: 5px 5px;
+}
+
+.link {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.button-blue {
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    background-color: #057dcd;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px;
+    margin-top: 30px;
+}
+
+.tiny-button-blue {
+    width: 150px;
+    border: none;
+    background-color: #43b0f1;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px;
 }
 
 .margin-y30 {
@@ -254,10 +288,14 @@ header.trick-page {
 
 div.info {
     border-radius: 5px 5px;
-    background-color: #057dcd;
+    background-color: #43b0f1;
     padding-left: 15px;
     padding-right: 15px;
     color: white;
+}
+
+.margin-b30 {
+    margin-bottom: 30px;
 }
 
 .iframe {
