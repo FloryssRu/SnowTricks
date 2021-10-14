@@ -11,15 +11,15 @@
             <div id="pictures-fields-list"
                 data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}"
                 data-widget-tags="{{ '<p></p>'|e }}"
-                data-widget-counter="2">
+                data-widget-counter="1">
 
                 {{ form_row(form.pictures) }}
 
                 {% if form.vars.valid %}
-                    <div id="trick_pictures_1">
+                    <div id="trick_pictures_0">
                         <div>
-                            <label for="trick_pictures_1_picturefile" class="required">Image obligatoire</label>
-                            <input type="file" id="trick_pictures_1_picturefile" name="trick[pictures][1][picturefile]" required>
+                            <label for="trick_pictures_0_picturefile" class="required">Image obligatoire</label>
+                            <input type="file" id="trick_pictures_0_picturefile" name="trick[pictures][0][picturefile]" required>
                         </div>
                     </div>
                 {% endif %}

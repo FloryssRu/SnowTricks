@@ -24,8 +24,11 @@ class TrickType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('pictures', CollectionType::class, [
                 'entry_type' => PicturesType::class,
-                'label' => "Images de la figure",
-                'entry_options' => ['label' => false],
+                'label' => $options['label_pictures'],
+                'entry_options' => [
+                    'label' => false,
+                    'required' => $options['required_pictures']
+                ],
                 'by_reference' => false,
                 'allow_add' => true
             ])
@@ -45,6 +48,8 @@ class TrickType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Trick::class,
+            'label_pictures' => 'Images de la figure',
+            'required_pictures' => true
         ]);
     }
 }

@@ -13,7 +13,9 @@
                 data-widget-tags="{{ '<p></p>'|e }}"
                 data-widget-counter="{{ form.pictures|length }}">
                 {{ form_row(form.pictures) }}
-
+                {% for picture in trick.pictures %}
+                    <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure" class="img-update-trick">
+                {% endfor %}
             </div>
 
             <button type="button" class="add-another-collection-widget margin-y30" data-list-selector="#pictures-fields-list">

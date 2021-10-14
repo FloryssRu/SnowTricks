@@ -7,8 +7,16 @@
     <div class="main-content">
         <header class="trick-page" style='background-image: url("/img/background_home.jpg{##}");;'>
             <div class="float-right back-white border-black inline p10">
-                <a href="{{ path('app_trick_update', {slug: trick.slug}) }}"><img src="/img/modify.png" alt="Modifier"></a>
-                <a href="{{ path('app_trick_delete', {id: trick.id}) }}" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')"><img src="/img/delete.png" alt="Supprimer"></a>
+                <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
+                    <img src="/img/modify.png" alt="Modifier" class="icon">
+                </a>
+                <form action="{{ path('app_trick_delete', {id: trick.id}) }}" method="post" class="buttonlink">
+                    <input type="hidden" value="{{ csrf_token('trick_delete_' ~ trick.id) }}" name="csrf_token">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')">
+                        <img src="/img/delete.png" alt="Supprimer" class="icon">
+                    </button>
+                </form>
             </div>
             <h1 class="relative top200">{{ trick.name }}</h1>
         </header>

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use DateTime;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class TrickController extends AbstractController
 {
@@ -43,7 +44,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $form->getData();
 
-            $handlerPictures->savePictures($request, $trick, $slugger);
+            $handlerPictures->savePictures($request->files->all()['trick']['pictures'], $trick, $slugger);
 
             $trick->setSlug($slugger->slug($trick->getName()));
             $trick->setCreatedAt(new DateTime());
@@ -62,13 +63,13 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "PUT"})
+     * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
      */
     public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
     {
-        $trick->removeAllPictures();
         $form = $this->createForm(TrickType::class, $trick, [
-            'method' => 'PUT'
+            'label_pictures' => 'Remplacer les images déjà ajoutées',
+            'required_pictures' => false
         ]);
 
         $form->handleRequest($request);
@@ -76,7 +77,8 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $form->getData();
 
-            $handlerPictures->savePictures($request, $trick, $slugger);
+            $pictures = $handlerPictures->deleteEmptyPictures($request->files->all()['trick']['pictures']);
+            $handlerPictures->savePictures($pictures, $trick, $slugger);
 
             $trick->setSlug($slugger->slug($trick->getName()));
             $trick->setModifiedAt(new DateTime());
@@ -96,7 +98,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"DELETE"})
+     * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"POST"})
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
