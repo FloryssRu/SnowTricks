@@ -160,6 +160,7 @@ class Trick
     {
         $this->message = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use DateTime;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class TrickController extends AbstractController
 {
@@ -42,12 +41,9 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick = $form->getData();
-
             $handlerPictures->savePictures($request->files->all()['trick']['pictures'], $trick, $slugger);
 
             $trick->setSlug($slugger->slug($trick->getName()));
-            $trick->setCreatedAt(new DateTime());
 
             $em->persist($trick);
             $em->flush();
@@ -75,8 +71,6 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick = $form->getData();
-
             $pictures = $handlerPictures->deleteEmptyPictures($request->files->all()['trick']['pictures']);
             $handlerPictures->savePictures($pictures, $trick, $slugger);
 
@@ -124,12 +118,8 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $message = $form->getData();
-
-            $message->setDateCreation(date("Y-m-d H:i:s"));
-
             //attribuer le message à l'utilisateur connecté
-            $message->setUser("user");
+            $message->setUser($this->getUser());
 
             $message->setTrick($trick);
 

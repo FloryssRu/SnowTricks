@@ -30,7 +30,7 @@ class Message
      * @Assert\NotNull(
      *      message = "La date ne doit pas être null."
      * )
-     * @Assert\Datetime(
+     * @Assert\DateTime(
      *      message = "La date doit être sous forme datetime."
      * )
      * @Assert\Type(
@@ -84,6 +84,11 @@ class Message
      * @Assert\Type("App\Entity\User")
      */
     private User $user;
+
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime();
+    }
 
     public function getId(): ?int
     {

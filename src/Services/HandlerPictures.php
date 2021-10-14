@@ -29,7 +29,7 @@ class HandlerPictures extends TrickController
                             $newFilename
                         );
                     } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
+                        $this->addFlash('fail', "L'image ne s'est pas enregistrée.");
                     }
                     $trick->getPictures()->toArray()[$i]->setName($newFilename);
 

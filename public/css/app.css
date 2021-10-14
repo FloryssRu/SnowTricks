@@ -189,6 +189,7 @@ section#tricks {
 article {
     background-color: #43b0f1;
     border-radius: 5px 5px;
+    margin-bottom: 20px;
 }
 
 article > div:nth-child(1) {
