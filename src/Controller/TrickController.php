@@ -81,6 +81,8 @@ class TrickController extends AbstractController
             $em->flush();
 
             $this->addflash('success', 'La figure a bien été modifiée.');
+            $this->addflash('fail', 'test');
+            $this->addflash('success', 'test');$this->addflash('success', 'test');
 
             return $this->redirectToRoute('app_trick_home');
         }

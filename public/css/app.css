@@ -3,7 +3,8 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Gemunu Libre', sans-serif;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
 }
 
 nav {
@@ -32,6 +33,39 @@ nav > ul > li > a {
 header {
     overflow: hidden;
     height: 800px;
+}
+
+.flash-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.flash {
+    margin-top: 50px;
+    margin-left: 50px;
+    min-width: 200px;
+    padding: 20px;
+    border-radius: 5px 5px;
+    border: black 2px solid;
+}
+
+.flash > p {
+    display: inline;
+}
+
+.flash-success {
+    background-color: #95EE9B;
+}
+
+.flash-fail {
+    background-color: #EE9595;
+}
+
+.flash-img-close {
+    width: 20px;
+    cursor: pointer;
+    float: right;
 }
 
 h1, h2, h3 {
@@ -87,6 +121,7 @@ select {
     padding: 10px;
     border-radius: 5px 5px;
     margin-top: 30px;
+    cursor: pointer;
 }
 
 .tiny-button-blue {
@@ -96,6 +131,7 @@ select {
     color: white;
     padding: 10px;
     border-radius: 5px 5px;
+    cursor: pointer;
 }
 
 .margin-y30 {
@@ -151,7 +187,6 @@ footer {
 
 header.homepage {
     background-image: url("/img/background_home.jpg");
-    background-repeat: none;
     background-size: cover;
 }
 
