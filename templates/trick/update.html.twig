@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ trick.name }}{% endblock %}
+
+{% block body %}
+    <h1>Modifier {{ trick.name }}</h1>
+    <section>
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            <div id="pictures-fields-list"
+                data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}"
+                data-widget-tags="{{ '<p></p>'|e }}"
+                data-widget-counter="{{ form.pictures|length }}">
+                {{ form_row(form.pictures) }}
+                {% for picture in trick.pictures %}
+                    <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure" class="img-update-trick">
+                {% endfor %}
+            </div>
+
+            <button type="button" class="add-another-collection-widget margin-y30 tiny-button-blue" data-list-selector="#pictures-fields-list">
+                Ajouter une autre photo
+            </button>
+            
+            {{ form_row(form.tagsVideo) }}
+            {{ form_row(form.relatedGroup) }}
+            <input type="submit" value="Modifier !" class="button-blue">
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/jquery/add-collection-widget.js"></script>
+{% endblock %}

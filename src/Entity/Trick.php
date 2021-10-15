@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Picture;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -45,7 +46,7 @@ class Trick
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      max = 255,
      *      minMessage = "Le titre doit contenir {{ limit }} caractères minimum.",
@@ -57,16 +58,18 @@ class Trick
     /**
      * @ORM\Column(type="string", length=255, unique="true")
      * @Assert\NotBlank(
-     *      message = "Le slug ne doit pas être vide."
+     *      message = "Le slug ne doit pas être vide.",
+     *      groups = "not-in-create-form"
      * )
      * @Assert\NotNull(
-     *      message = "Le slug ne doit pas être null."
+     *      message = "Le slug ne doit pas être null.",
+     *      groups = "not-in-create-form"
      * )
      * @Assert\Type(
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      max = 255
      * )
@@ -85,7 +88,7 @@ class Trick
      *     type = "string",
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 2,
      *      minMessage = "La description doit contenir {{ limit }} caractères minimum."
      * )
@@ -93,7 +96,7 @@ class Trick
     private string $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", cascade={"persist"}, orphanRemoval=true)
      * @Assert\NotBlank(
      *      message = "Vous devez ajouter au moins 1 image."
      * )
@@ -101,7 +104,7 @@ class Trick
      *      message = "Vous devez ajouter au moins une image."
      * )
      */
-    private Collection $picture;
+    private Collection $pictures;
 
     /**
      * @ORM\Column(type="text")
@@ -115,7 +118,7 @@ class Trick
      *      type = "string",
      *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
-     * @Assert\Lenght(
+     * @Assert\Length(
      *      min = 10,
      *      minMessage = "Le texte doit contenir minimum une balise <embed> valide."
      * )
@@ -137,16 +140,27 @@ class Trick
      *      message = "Le groupe ne doit pas être vide."
      * )
      * @Assert\Type(
-     *      type = "string",
+     *      type = "object",
      *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
     private Group $relatedGroup;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modifiedAt;
+
     public function __construct()
     {
-        $this->picture = new ArrayCollection();
         $this->message = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -193,15 +207,15 @@ class Trick
     /**
      * @return Collection|Picture[]
      */
-    public function getPicture(): Collection
+    public function getPictures(): Collection
     {
-        return $this->picture;
+        return $this->pictures;
     }
 
     public function addPicture(Picture $picture): self
     {
-        if (!$this->picture->contains($picture)) {
-            $this->picture[] = $picture;
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
             $picture->setTrick($this);
         }
 
@@ -210,13 +224,19 @@ class Trick
 
     public function removePicture(Picture $picture): self
     {
-        if ($this->picture->removeElement($picture)) {
+        if ($this->pictures->removeElement($picture)) {
             // set the owning side to null (unless already changed)
             if ($picture->getTrick() === $this) {
                 $picture->setTrick(null);
             }
         }
 
+        return $this;
+    }
+
+    public function removeAllPictures(): self
+    {
+        $this->pictures->clear();
         return $this;
     }
 
@@ -270,6 +290,30 @@ class Trick
     public function setRelatedGroup(?Group $relatedGroup): self
     {
         $this->relatedGroup = $relatedGroup;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }

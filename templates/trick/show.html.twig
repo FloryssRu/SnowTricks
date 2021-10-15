@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ trick.name }}{% endblock %}
+
+{% block body %}
+    <img src="/img/gradient_blue.png" class="width100 absolute z-index-2">
+    <div class="main-content">
+        {% set pictureHeader = trick.pictures.first() %}
+        <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
+            <div class="float-right back-white border-black inline p10">
+                <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
+                    <img src="/img/modify.png" alt="Modifier" class="icon">
+                </a>
+                <form action="{{ path('app_trick_delete', {id: trick.id}) }}" method="post" class="buttonlink">
+                    <input type="hidden" value="{{ csrf_token('trick_delete_' ~ trick.id) }}" name="csrf_token">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')">
+                        <img src="/img/delete.png" alt="Supprimer" class="icon">
+                    </button>
+                </form>
+            </div>
+            <h1 class="relative top200">{{ trick.name }}</h1>
+        </header>
+        <section class="margin-y30">
+            <div class="flexbox-tight">
+                {% for picture in trick.pictures %}
+                    <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
+                {% endfor %}
+                {{ trick.tagsVideo | raw }}
+            </div>
+        </section>
+        <section class="margin-y30">
+            <div class="width70">
+                <p>{{ trick.description }}</p>
+            </div>
+            <div class="flexbox width50">
+                <div class="info">
+                    <p>Créé le {{ trick.createdAt|date('d/m/Y, à H:i:s') }}</p>
+                </div>
+                <div class="info">
+                    <p>{{ trick.relatedGroup.name }}</p>
+                </div>
+                {% if trick.modifiedAt %}
+                    <div class="info">
+                        <p>Modifié le {{ trick.modifiedAt|date('d/m/Y, à H:i:s') }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+        <hr>
+        <section class="margin-y30">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Envoyer" class="button-blue margin-b30">
+            {{ form_end(form) }}
+            <hr>
+            <div class="width50">
+                {% for message in trick.message %}
+                {% else %}
+                    <p>Aucun message posté pour l'instant.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}

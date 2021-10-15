@@ -7,14 +7,25 @@
         <h1>Accueil - SnowTricks</h1>
         <a id="arrow_down" class="arrow" href="#tricks"><img src="/img/arrow_down.png" alt="descendre"></a>
     </header>
-    <section id="tricks">
+    <section id="tricks" class="flexbox">
         {% for trick in tricks %}
             <article>
-                <img src="/img_tricks/#" alt="image d'une figure">
+                {% set picture = trick.pictures.first() %}
                 <div>
-                    <p><a href="#">{{ trick.name }}</a></p>
-                    <a href="#"><img src="/img/modify.png" alt="Modifier"></a>
-                    <a href="#"><img src="/img/delete.png" alt="Supprimer"></a>
+                    <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image d'une figure" class="img_trick">
+                </div>
+                <div>
+                    <p><a href="{{ path('app_trick_show', {slug: trick.slug}) }}" class="link">{{ trick.name }}</a></p>
+                    <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
+                        <img src="/img/modify.png" alt="Modifier" class="icon">
+                    </a>
+                    <form action="{{ path('app_trick_delete', {id: trick.id}) }}" method="post" class="buttonlink">
+                        <input type="hidden" value="{{ csrf_token('trick_delete_' ~ trick.id) }}" name="csrf_token">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')">
+                            <img src="/img/delete.png" alt="Supprimer" class="icon">
+                        </button>
+                    </form>
                 </div>
             </article>
         {% else %}

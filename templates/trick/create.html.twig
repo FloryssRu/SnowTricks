@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle figure{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une nouvelle figure</h1>
+    <section>
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            <div id="pictures-fields-list"
+                data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}"
+                data-widget-tags="{{ '<p></p>'|e }}"
+                data-widget-counter="1">
+
+                {{ form_row(form.pictures) }}
+
+                {% if form.vars.valid %}
+                    <div id="trick_pictures_0">
+                        <div>
+                            <label for="trick_pictures_0_picturefile" class="required">Image obligatoire</label>
+                            <input type="file" id="trick_pictures_0_picturefile" name="trick[pictures][0][picturefile]" required>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <button type="button" class="add-another-collection-widget margin-y30 tiny-button-blue" data-list-selector="#pictures-fields-list">
+                Ajouter une photo
+            </button>
+            
+            {{ form_row(form.tagsVideo) }}
+            {{ form_row(form.relatedGroup) }}
+            <input type="submit" value="Ajouter !" class="button-blue">
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/jquery/add-collection-widget.js"></script>
+{% endblock %}
