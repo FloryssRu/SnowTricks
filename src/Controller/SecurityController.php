@@ -15,8 +15,8 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            $this->addFlash('fail', 'Vous êtes déjà connecté. Veuillez vous déconnecter pour changer de compte.');
-            return $this->redirectToRoute('target_path');
+            $this->addFlash('fail', 'Vous êtes déjà connecté.');
+            return $this->redirectToRoute('app_trick_home');
         }
 
         // get the login error if there is one
@@ -28,10 +28,10 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="app_logout")
+     * @Route("/deconnexion", name="app_logout", methods={"GET"})
      */
     public function logout()
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        $this->addFlash('success', 'Vous êtes déconnecté.');
     }
 }

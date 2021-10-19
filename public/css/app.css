@@ -346,3 +346,9 @@ div.info {
     margin-right: 10px;
     margin-bottom: 20px;
 }
+
+/* authentication */
+
+input[type="checkbox"] {
+    width: auto;
+}

@@ -28,10 +28,10 @@
                 {% if app.user %}
                     <li><a href="{{ path('app_trick_create') }}">Ajouter une figure</a></li>
                     <li><a href="#">Mon compte</a></a>
-                    <li><a href="#">Se déconnecter</a></li>
+                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
                 {% else %}
                     <li><a href="#">S'inscrire</a></li>
-                    <li><a href="#">Se connecter</a></li>
+                    <li><a href="{{ path('app_login') }}">Se connecter</a></li>
                 {% endif %}
             </ul>
         </nav>
