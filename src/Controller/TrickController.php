@@ -23,7 +23,7 @@ class TrickController extends AbstractController
      */
     public function index(TrickRepository $repo): Response
     {
-        $tricks = $repo->findAll(); //dd($tricks[1]);
+        $tricks = $repo->findAll();
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks
         ]);
@@ -39,7 +39,6 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $handlerPictures->savePictures($request->files->all()['trick']['pictures'], $trick, $slugger);
 
@@ -111,16 +110,15 @@ class TrickController extends AbstractController
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, EntityManagerInterface $em, Trick $trick): Response
+    public function show(Request $request, EntityManagerInterface $em, Trick $trick, string $slug): Response
     {
         $message = new Message();
 
         $form = $this->createForm(MessageType::class, $message);
-
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //attribuer le message à l'utilisateur connecté
             $message->setUser($this->getUser());
 
             $message->setTrick($trick);
@@ -130,7 +128,7 @@ class TrickController extends AbstractController
 
             $this->addflash('success', 'Votre message a bien été ajouté.');
 
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_trick_show', ['slug' => $slug]);
         }
 
         return $this->render('trick/show.html.twig', [

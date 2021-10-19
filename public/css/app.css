@@ -239,9 +239,14 @@ article > div:nth-child(2) {
     padding-bottom: 10px;
 }
 
-article > div:nth-child(2) > p {
+p.title-trick-connected {
     display: inline-block;
     width: 120px;
+}
+
+p.title-trick-not-connected {
+    display: inline-block;
+    width: 100%;
 }
 
 .img_trick {
@@ -269,6 +274,10 @@ header.trick-page {
 .width50 {
     width: 50%;
     margin-left: 25%;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .absolute {
@@ -337,6 +346,40 @@ div.info {
 .iframe {
     width: 150px;
     height: 100px;
+}
+
+.message {
+    width: 100%;
+    background-color: #CCC;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 30px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px 8px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.message-avatar > img {
+    width: 100%;
+}
+
+.message-user > p {
+    margin-left: 15px;
+    display: inline;
+}
+
+p.message-content {
+    margin-bottom: 0px;
 }
 
 /* update trick */

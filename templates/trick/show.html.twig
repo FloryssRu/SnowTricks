@@ -7,6 +7,7 @@
     <div class="main-content">
         {% set pictureHeader = trick.pictures.first() %}
         <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
+        {% if app.user %}
             <div class="float-right back-white border-black inline p10">
                 <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
                     <img src="/img/modify.png" alt="Modifier" class="icon">
@@ -19,6 +20,7 @@
                     </button>
                 </form>
             </div>
+        {% endif %}
             <h1 class="relative top200">{{ trick.name }}</h1>
         </header>
         <section class="margin-y30">
@@ -49,17 +51,32 @@
         </section>
         <hr>
         <section class="margin-y30">
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input type="submit" value="Envoyer" class="button-blue margin-b30">
-            {{ form_end(form) }}
-            <hr>
-            <div class="width50">
-                {% for message in trick.message %}
-                {% else %}
-                    <p>Aucun message posté pour l'instant.</p>
-                {% endfor %}
-            </div>
+            {% if app.user %}
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Envoyer" class="button-blue margin-b30">
+                {{ form_end(form) }}
+            {% else %}
+                <div class="width50 text-center">
+                    <p>Connectez-vous pour laisser un message.</p>
+                </div>
+            {% endif %}
+                <hr>
+                <div class="width50">
+                    {% for message in trick.messages %}
+                        <div class="message">
+                            <div class="message-user">
+                                <div class="message-avatar">
+                                    <img src="{{ asset("img-users/" ~ message.user.pictureName) }}" alt="image utilisateur">
+                                </div>
+                                <p>{{ message.user.username }}, le {{ message.dateCreation|date('d/m/Y, à H:i:s') }}</p>
+                            </div>
+                            <p class="message-content">{{ message.content }}</p>
+                        </div>
+                    {% else %}
+                        <p>Aucun message posté pour l'instant.</p>
+                    {% endfor %}
+                </div>
         </section>
     </div>
 {% endblock %}

@@ -128,7 +128,7 @@ class Trick
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
      */
-    private Collection $message;
+    private Collection $messages;
 
     /**
      * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="trick")
@@ -148,6 +148,12 @@ class Trick
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(
+     *      message = "La date de création ne doit pas être vide."
+     * )
+     * @Assert\NotNull(
+     *      message = "La date de création ne doit pas être null."
+     * )
      */
     private $createdAt;
 
@@ -255,15 +261,15 @@ class Trick
     /**
      * @return Collection|Message[]
      */
-    public function getMessage(): Collection
+    public function getMessages(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
     public function addMessage(Message $message): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
             $message->setTrick($this);
         }
 
@@ -272,7 +278,7 @@ class Trick
 
     public function removeMessage(Message $message): self
     {
-        if ($this->message->removeElement($message)) {
+        if ($this->messages->removeElement($message)) {
             // set the owning side to null (unless already changed)
             if ($message->getTrick() === $this) {
                 $message->setTrick(null);

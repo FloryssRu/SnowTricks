@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,22 +24,15 @@ class Message
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime")
      * @Assert\NotBlank(
      *      message = "La date ne doit pas être vide."
      * )
      * @Assert\NotNull(
      *      message = "La date ne doit pas être null."
      * )
-     * @Assert\DateTime(
-     *      message = "La date doit être sous forme datetime."
-     * )
-     * @Assert\Type(
-     *     type = "datetime",
-     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
-     * )
      */
-    private string $dateCreation;
+    private $dateCreation;
 
     /**
      * @ORM\Column(type="text")
@@ -63,10 +57,12 @@ class Message
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
-     *      message = "Le message doit être relié à un trick."
+     *      message = "Le message doit être relié à un trick.",
+     *      groups = "not-in-message-form"
      * )
      * @Assert\NotNull(
-     *      message = "Le message doit être relié à un trick."
+     *      message = "Le message doit être relié à un trick.",
+     *      groups = "not-in-message-form"
      * )
      * @Assert\Type("App\Entity\Trick")
      */
@@ -76,10 +72,12 @@ class Message
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
-     *      message = "Le message doit être relié à un utilisateur."
+     *      message = "Le message doit être relié à un utilisateur.",
+     *      groups = "not-in-message-form"
      * )
      * @Assert\NotNull(
-     *      message = "Le message doit être relié à un utilisateur."
+     *      message = "Le message doit être relié à un utilisateur.",
+     *      groups = "not-in-message-form"
      * )
      * @Assert\Type("App\Entity\User")
      */
@@ -95,7 +93,7 @@ class Message
         return $this->id;
     }
 
-    public function getDateCreation(): ?string
+    public function getDateCreation(): ?DateTimeInterface
     {
         return $this->dateCreation;
     }

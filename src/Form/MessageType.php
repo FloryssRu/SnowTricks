@@ -17,6 +17,7 @@ class MessageType extends AbstractType
                 'attr' => ['autofocus' => true],
                 'label' => 'Message'
             ])
+            ->getForm()
         ;
     }
 
