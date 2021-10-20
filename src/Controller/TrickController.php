@@ -19,7 +19,7 @@ use DateTime;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/", name="app_trick_home", methods={"GET"})
+     * @Route("/", name="app_home", methods={"GET"})
      */
     public function index(TrickRepository $repo): Response
     {
@@ -49,7 +49,7 @@ class TrickController extends AbstractController
 
             $this->addflash('success', 'La figure a bien été ajoutée.');
 
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('trick/create.html.twig', [
@@ -83,7 +83,7 @@ class TrickController extends AbstractController
             $this->addflash('fail', 'test');
             $this->addflash('success', 'test');$this->addflash('success', 'test');
 
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('trick/update.html.twig', [
@@ -104,7 +104,7 @@ class TrickController extends AbstractController
 
         $this->addflash('success', 'Le trick a bien été supprimé.');
 
-        return $this->redirectToRoute('app_trick_home');
+        return $this->redirectToRoute('app_home');
     }
 
     /**

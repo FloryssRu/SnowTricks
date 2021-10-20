@@ -48,6 +48,7 @@ header {
     padding: 20px;
     border-radius: 5px 5px;
     border: black 2px solid;
+    color: white;
 }
 
 .flash > p {
@@ -60,6 +61,10 @@ header {
 
 .flash-fail {
     background-color: #EE9595;
+}
+
+.flash-error {
+    background-color: red;
 }
 
 .flash-img-close {

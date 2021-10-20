@@ -23,8 +23,8 @@
         <nav>
             <img src="/img/icon.png" alt="icon">
             <ul>
-                <li><a href="{{ path('app_trick_home') }}">Accueil</a></li>
-                <li><a href="{{ path('app_trick_home') }}#tricks">Figures</a></li>
+                <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li><a href="{{ path('app_home') }}#tricks">Figures</a></li>
                 {% if app.user %}
                     <li><a href="{{ path('app_trick_create') }}">Ajouter une figure</a></li>
                     <li><a href="#">Mon compte</a></a>

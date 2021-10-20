@@ -31,9 +31,9 @@ class RegistrationController extends AbstractController
     {
         if ($this->getUser()) {
             $this->addFlash('fail', 'Vous êtes déjà connecté.');
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_home');
         }
-        
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
             $this->addFlash('success', 'Votre inscription a bien été enregistrée, bienvenue ' . $this->getUser()->getUsername() . ' !');
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -77,13 +77,13 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
+            $this->addFlash('error', $exception->getReason());
 
             return $this->redirectToRoute('app_register');
         }
 
         $this->addFlash('success', 'Votre adresse email a été vérifiée.');
 
-        return $this->redirectToRoute('app_trick_home');
+        return $this->redirectToRoute('app_home');
     }
 }
