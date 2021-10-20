@@ -94,6 +94,10 @@ label, input, textarea {
     width: 100%;
 }
 
+label {
+    margin-top: 15px;
+}
+
 textarea {
     height: 80px;
     font-family: 'Arial', sans-serif;
@@ -102,6 +106,10 @@ textarea {
 select {
     min-width: 200px;
     border-radius: 5px 5px;
+}
+
+input[type="checkbox"] + label {
+    width: auto;
 }
 
 .link {

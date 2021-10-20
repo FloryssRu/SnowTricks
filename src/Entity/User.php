@@ -78,10 +78,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\NotBlank(
-     *      message = "Le mot de passe ne doit pas être vide."
+     *      message = "Le mot de passe ne doit pas être vide.",
+     *      groups = "not-in-registration-form"
      * )
      * @Assert\NotNull(
-     *      message = "Le mot de passe ne doit pas être null."
+     *      message = "Le mot de passe ne doit pas être null.",
+     *      groups = "not-in-registration-form"
      * )
      * @Assert\Type(
      *     type = "string",
@@ -97,9 +99,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Assert\NotBlank(
-     *      message = "L'utilisateur doit avoir au moins 1 rôle."
-     * )
      * @Assert\NotNull(
      *      message = "Les rôles ne peuvent pas être null."
      * )
@@ -112,9 +111,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank(
-     *      message = "La vérification de compte ne peut pas être vide."
-     * )
      * @Assert\NotNull(
      *      message = "La vérification de compte ne peut pas être null."
      * )
@@ -123,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private bool $isVerified = false;
+    private bool $isVerified;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
@@ -142,6 +138,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->message = new ArrayCollection();
+        $this->isVerified = false;
     }
 
     public function getId(): ?int
