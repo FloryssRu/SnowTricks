@@ -123,7 +123,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      */
-    private bool $isVerified;
+    private bool $isVerified = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
@@ -240,7 +240,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIsVerified(): ?bool
+    public function isVerified(): bool
     {
         return $this->isVerified;
     }

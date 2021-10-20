@@ -50,6 +50,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $request->getSession()->getFlashBag()->add('success', 'Bienvenue ' . $token->getUser()->getUserIdentifier() . ' !');
         return new RedirectResponse($this->urlGenerator->generate('app_trick_home'));
     }
 
