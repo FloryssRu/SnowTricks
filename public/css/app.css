@@ -35,6 +35,16 @@ header {
     height: 800px;
 }
 
+div.error {
+    background-color: red;
+    color: white;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-radius: 5px 5px;
+    padding: 10px;
+    text-align: center;
+}
+
 .flash-container {
     display: flex;
     flex-direction: column;
@@ -50,6 +60,7 @@ header {
     border: black 2px solid;
     background-color: black;
     color: white;
+    position: fixed;
 }
 
 .flash > p {

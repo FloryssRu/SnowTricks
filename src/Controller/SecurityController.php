@@ -32,6 +32,6 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        $this->addFlash('success', 'Vous êtes déconnecté.');
+        //
     }
 }
