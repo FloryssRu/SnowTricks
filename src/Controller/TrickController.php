@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Entity\Trick;
+use App\Entity\User;
 use App\Form\TrickType;
 use App\Form\MessageType;
 use App\Repository\TrickRepository;
@@ -13,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use DateTime;
 
@@ -31,6 +34,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/creation", name="app_trick_create", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures): Response
     {
@@ -59,6 +63,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
     {
@@ -94,6 +99,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
@@ -109,6 +115,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
+     * @Security("is_granted('ROLE_USER') || request.get('method') == 'GET'")
      */
     public function show(Request $request, EntityManagerInterface $em, Trick $trick, string $slug): Response
     {

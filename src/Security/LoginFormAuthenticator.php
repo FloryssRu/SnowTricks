@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
@@ -57,5 +58,18 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+    
+    /**
+     * Override to control what happens when the user hits a secure page
+     * but isn't logged in yet.
+     */
+    public function start(Request $request, AuthenticationException $authException = null): Response
+    {
+        $url = $this->getLoginUrl($request);
+
+        $request->getSession()->getFlashBag()->add('error', "Vous devez d'abord vous authentifier.");
+
+        return new RedirectResponse($url);
     }
 }
