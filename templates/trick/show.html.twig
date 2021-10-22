@@ -5,8 +5,12 @@
 {% block body %}
     <img src="/img/gradient_blue.png" class="width100 absolute z-index-2">
     <div class="main-content">
-        {% set pictureHeader = trick.pictures.first() %}
-        <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
+        {% if trick.pictures.first() %}
+            {% set pictureHeader = trick.pictures.first() %}
+            <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
+        {% else %}
+            <header class="trick-page" style='background-image: url("{{ asset("img-tricks/default.jpg") }}");'>
+        {% endif %}
         {% if app.user %}
             <div class="float-right back-white border-black inline p10">
                 <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">

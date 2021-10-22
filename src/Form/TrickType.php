@@ -33,7 +33,7 @@ class TrickType extends AbstractType
                 'allow_add' => true
             ])
             ->add('tagsVideo', TextareaType::class, [
-                'label' => 'Balise(s) <embed> de vidéos en ligne'
+                'label' => 'Balise(s) <iframe> de vidéos en ligne'
             ])
             ->add('relatedGroup', EntityType::class, [
                 'class' => Group::class,

@@ -3,8 +3,9 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <header id="header" class="homepage">
-        <h1>Accueil - SnowTricks</h1>
+    <header class="homepage">
+        <h1>SnowTricks</h1>
+        <p>Réussis tes figures en un clic !</p>
         <a id="arrow_down" class="arrow" href="#tricks"><img src="/img/arrow_down.png" alt="descendre"></a>
     </header>
     <section id="tricks" class="flexbox">
@@ -36,5 +37,5 @@
             <p>Aucun trick publié !</p>
         {% endfor %}
     </section>
-    <a id="arrow_up" class="arrow" href="#header"><img src="/img/arrow_up.png" alt="monter"></a>
+    <a id="arrow_up" class="arrow" href="#tricks"><img src="/img/arrow_up.png" alt="monter"></a>
 {% endblock %}

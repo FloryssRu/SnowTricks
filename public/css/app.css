@@ -5,6 +5,9 @@ body {
     padding: 0;
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 50px;
 }
 
 nav {
@@ -68,11 +71,11 @@ div.error {
 }
 
 .flash-success {
-    background-color: #95EE9B;
+    background-color: #31AB20;
 }
 
 .flash-fail {
-    background-color: #EE9595;
+    background-color: #AB2020;
 }
 
 .flash-error {
@@ -210,8 +213,11 @@ footer {
     color: white;
     background-color: #1e3d58;
     height: 50px;
-    padding: 10px;
+    padding: 1%;
     margin-top: 50px;
+    position: absolute;
+    bottom: 0px;
+    width: 98%;
 }
 
 
@@ -220,11 +226,24 @@ footer {
 header.homepage {
     background-image: url("/img/background_home.jpg");
     background-size: cover;
+    position: relative;
 }
 
 header.homepage > h1 {
     position: relative;
-    top: 300px;
+    top: 270px;
+    margin-bottom: 0px;
+    font-size: 70px;
+}
+
+header > p {
+    position: relative;
+    top: 270px;
+    margin-top: 10px;
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 3px black;
+    font-size: 30px;
 }
 
 .arrow {
