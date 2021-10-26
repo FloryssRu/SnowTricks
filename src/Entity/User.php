@@ -38,10 +38,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(
-     *      message = "Le nom d'utilisateur ne doit pas être vide."
+     *      message = "Le nom d'utilisateur ne doit pas être vide.",
+     *      groups = "not-in-account-form"
      * )
      * @Assert\NotNull(
-     *      message = "Le nom d'utilisateur ne doit pas être null."
+     *      message = "Le nom d'utilisateur ne doit pas être null.",
+     *      groups = "not-in-account-form"
      * )
      * @Assert\Type(
      *     type = "string",
@@ -59,14 +61,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255, unique="true")
      * @Assert\NotBlank(
-     *      message = "L'email ne doit pas être vide."
+     *      message = "L'email ne doit pas être vide.",
+     *      groups = "not-in-account-form"
      * )
      * @Assert\NotNull(
-     *      message = "L'email ne doit pas être null."
+     *      message = "L'email ne doit pas être null.",
+     *      groups = "not-in-account-form"
      * )
      * @Assert\Type(
-     *     type = "string",
-     *     message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     *      type = "string",
+     *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
      * )
      * @Assert\Email(
      *      message = "Veuillez entrer une adresse email valide."
@@ -79,11 +83,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      * @Assert\NotBlank(
      *      message = "Le mot de passe ne doit pas être vide.",
-     *      groups = "not-in-registration-form"
+     *      groups = {"not-in-registration-form", "not-in-account-form"}
      * )
      * @Assert\NotNull(
      *      message = "Le mot de passe ne doit pas être null.",
-     *      groups = "not-in-registration-form"
+     *      groups = {"not-in-registration-form", "not-in-account-form"}
      * )
      * @Assert\Type(
      *     type = "string",
@@ -100,7 +104,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="json")
      * @Assert\NotNull(
-     *      message = "Les rôles ne peuvent pas être null."
+     *      message = "Les rôles ne peuvent pas être null.",
+     *      groups = "not-in-account-form"
      * )
      * @Assert\Type(
      *     type = "array",
@@ -112,7 +117,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      * @Assert\NotNull(
-     *      message = "La vérification de compte ne peut pas être null."
+     *      message = "La vérification de compte ne peut pas être null.",
+     *      groups = "not-in-account-form"
      * )
      * @Assert\Type(
      *     type = "boolean",

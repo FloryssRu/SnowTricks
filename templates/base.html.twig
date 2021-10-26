@@ -27,7 +27,7 @@
                 <li><a href="{{ path('app_home') }}#tricks">Figures</a></li>
                 {% if app.user %}
                     <li><a href="{{ path('app_trick_create') }}">Ajouter une figure</a></li>
-                    <li><a href="#">Mon compte</a></a>
+                    <li><a href="{{ path('app_account') }}">Mon compte</a></a>
                     <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
                 {% else %}
                     <li><a href="{{ path('app_register') }}">S'inscrire</a></li>

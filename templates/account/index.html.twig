@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My account{% endblock %}
+
+{% block body %}
+    <h1>{{ user.username }}</h1>
+    <div class="container-img-account">
+        {% if user.pictureName %}
+            <img src="{{ asset("img-users/" ~ user.pictureName) }}" alt="image utilisateur" class="img-account">
+        {% else %}
+            <img src="{{ asset("img-users/default.jpg") }}" alt="image utilisateur" class="img-account">
+        {% endif %}
+    </div>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Changer d'image" class="button-blue margin-b30">
+    {{ form_end(form) }}
+{% endblock %}
