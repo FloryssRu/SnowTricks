@@ -7,7 +7,7 @@ body {
     font-weight: 300;
     min-height: 100vh;
     position: relative;
-    padding-bottom: 50px;
+    padding-bottom: 40px;
 }
 
 nav {
@@ -460,11 +460,15 @@ input[type="checkbox"] {
     margin-right: auto;
     border-radius: 100px 100px;
     box-shadow: 0 0 5px 3px black;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
 }
 
 .img-account {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.marginb-50 {
+    margin-bottom: 50px;
 }

@@ -19,7 +19,6 @@ class AccountController extends AbstractController
 {
     /**
      * @Route("", name="app_account", methods={"GET", "POST"})
-     * @isGranted("ROLE_USER")
      */
     public function index(Request $request, HandlerAccount $handlerAccount, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {

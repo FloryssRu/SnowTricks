@@ -11,6 +11,7 @@
             <img src="{{ asset("img-users/default.jpg") }}" alt="image utilisateur" class="img-account">
         {% endif %}
     </div>
+    <p class="text-center marginb-50"><a href="{{ path('app_forgot_password_request') }}">Changer mon mot de passe !</a></p>
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Changer d'image" class="button-blue margin-b30">
