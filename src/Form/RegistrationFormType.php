@@ -19,20 +19,14 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
-                'label' => "Nom d'utilisateur"
-            ])
+            ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
             ->add('email', EmailType::class)
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'label' => 'Mot de passe',
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
+                    new NotBlank(['message' => 'Please enter a password',]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
@@ -45,9 +39,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'label' => "J'accepte les conditions d'utilisation.",
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+                    new IsTrue(['message' => 'You should agree to our terms.',]),
                 ],
             ])
             ->getForm()

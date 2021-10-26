@@ -113,7 +113,6 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
-     * @Security("request.getMethod() == 'GET' || is_granted('ROLE_USER')")
      */
     public function show(Request $request, EntityManagerInterface $em, Trick $trick, string $slug, MessageRepository $messageRepo): Response
     {
