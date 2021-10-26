@@ -67,7 +67,7 @@
             {% endif %}
                 <hr>
                 <div class="width50">
-                    {% for message in trick.messages %}
+                    {% for message in messages %}
                         <div class="message">
                             <div class="message-user">
                                 <div class="message-avatar">
@@ -77,13 +77,19 @@
                                     <img src="{{ asset("img-users/default.jpg") }}" alt="image utilisateur">
                                 {% endif %}
                                 </div>
-                                <p>{{ message.user.username }}, le {{ message.dateCreation|date('d/m/Y, à H:i:s') }}</p>
+                                <p>{{ message.user.username }}, le {{ message.createdAt|date('d/m/Y, à H:i:s') }}</p>
                             </div>
                             <p class="message-content">{{ message.content }}</p>
                         </div>
                     {% else %}
                         <p>Aucun message posté pour l'instant.</p>
                     {% endfor %}
+                    {% if previous >= 0 %}
+                        <a href="{{ path('app_trick_show', { slug: trick.slug, offset: previous }) }}">Previous</a>
+                    {% endif %}
+                    {% if next < messages|length %}
+                        <a href="{{ path('app_trick_show', { slug: trick.slug, offset: next }) }}">Next</a>
+                    {% endif %}
                 </div>
         </section>
     </div>

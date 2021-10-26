@@ -64,6 +64,7 @@ div.error {
     background-color: black;
     color: white;
     position: fixed;
+    z-index: 1;
 }
 
 .flash > p {

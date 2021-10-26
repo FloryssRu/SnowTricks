@@ -37,5 +37,13 @@
             <p>Aucun trick publié !</p>
         {% endfor %}
     </section>
-    <a id="arrow_up" class="arrow" href="#tricks"><img src="/img/arrow_up.png" alt="monter"></a>
+    <button id="followingtricks" class="button-blue">Plus de tricks !</button>
+    {% if tricks|length > 15 %}
+        <a id="arrow_up" class="arrow" href="#tricks"><img src="/img/arrow_up.png" alt="monter"></a>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/jquery/load_more.js"></script>
 {% endblock %}

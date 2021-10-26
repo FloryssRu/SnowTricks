@@ -32,7 +32,7 @@ class Message
      *      message = "La date ne doit pas être null."
      * )
      */
-    private $dateCreation;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="text")
@@ -85,7 +85,7 @@ class Message
 
     public function __construct()
     {
-        $this->dateCreation = new \DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -93,14 +93,14 @@ class Message
         return $this->id;
     }
 
-    public function getDateCreation(): ?DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
-        return $this->dateCreation;
+        return $this->createdAt;
     }
 
-    public function setDateCreation(string $dateCreation): self
+    public function setCreatedAt(string $createdAt): self
     {
-        $this->dateCreation = $dateCreation;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

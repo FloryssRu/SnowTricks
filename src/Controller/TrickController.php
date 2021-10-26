@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Entity\Trick;
-use App\Entity\User;
 use App\Form\TrickType;
 use App\Form\MessageType;
+use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
 use App\Services\HandlerPictures;
 use Doctrine\ORM\EntityManagerInterface;
@@ -85,8 +85,6 @@ class TrickController extends AbstractController
             $em->flush();
 
             $this->addflash('success', 'La figure a bien été modifiée.');
-            $this->addflash('fail', 'test');
-            $this->addflash('success', 'test');$this->addflash('success', 'test');
 
             return $this->redirectToRoute('app_home');
         }
@@ -115,9 +113,9 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
-     * @Security("is_granted('ROLE_USER') || request.get('method') == 'GET'")
+     * @Security("request.getMethod() == 'GET' || is_granted('ROLE_USER')")
      */
-    public function show(Request $request, EntityManagerInterface $em, Trick $trick, string $slug): Response
+    public function show(Request $request, EntityManagerInterface $em, Trick $trick, string $slug, MessageRepository $messageRepo): Response
     {
         $message = new Message();
 
@@ -138,9 +136,15 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('app_trick_show', ['slug' => $slug]);
         }
 
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $messageRepo->getMessagePaginator($trick, $offset);
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'messages' => $paginator,
+            'previous' => $offset - MessageRepository::MESSAGES_PER_PAGE,
+            'next' => min(count($paginator), $offset + MessageRepository::MESSAGES_PER_PAGE)
         ]);
     }
 }
