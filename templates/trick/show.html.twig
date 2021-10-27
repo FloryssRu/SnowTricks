@@ -4,93 +4,95 @@
 
 {% block body %}
     <img src="/img/gradient_blue.png" class="width100 absolute z-index-2">
-    <div class="main-content">
-        {% if trick.pictures.first() %}
-            {% set pictureHeader = trick.pictures.first() %}
-            <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
-        {% else %}
-            <header class="trick-page" style='background-image: url("{{ asset("img-tricks/default.jpg") }}");'>
-        {% endif %}
-        {% if app.user %}
-            <div class="float-right back-white border-black inline p10">
-                <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
-                    <img src="/img/modify.png" alt="Modifier" class="icon">
-                </a>
-                <form action="{{ path('app_trick_delete', {id: trick.id}) }}" method="post" class="buttonlink">
-                    <input type="hidden" value="{{ csrf_token('trick_delete_' ~ trick.id) }}" name="csrf_token">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')">
-                        <img src="/img/delete.png" alt="Supprimer" class="icon">
-                    </button>
-                </form>
-            </div>
-        {% endif %}
-            <h1 class="relative top200">{{ trick.name }}</h1>
-        </header>
-        <section class="margin-y30">
-            <div class="flexbox-tight">
-                {% for picture in trick.pictures %}
-                    <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
-                {% endfor %}
-                {{ trick.tagsVideo | raw }}
-            </div>
-        </section>
-        <section class="margin-y30">
-            <div class="width70">
-                <p>{{ trick.description }}</p>
-            </div>
-            <div class="flexbox width50">
-                <div class="info">
-                    <p>Créé le {{ trick.createdAt|date('d/m/Y, à H:i:s') }}</p>
-                </div>
-                <div class="info">
-                    <p>{{ trick.relatedGroup.name }}</p>
-                </div>
-                {% if trick.modifiedAt %}
-                    <div class="info">
-                        <p>Modifié le {{ trick.modifiedAt|date('d/m/Y, à H:i:s') }}</p>
-                    </div>
-                {% endif %}
-            </div>
-        </section>
-        <hr>
-        <section class="margin-y30">
-            {% if app.user %}
-                {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <input type="submit" value="Envoyer" class="button-blue margin-b30">
-                {{ form_end(form) }}
+    <div class="paddingb-200">
+        <div class="main-content">
+            {% if trick.pictures.first() %}
+                {% set pictureHeader = trick.pictures.first() %}
+                <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
             {% else %}
-                <div class="width50 text-center">
-                    <p>Connectez-vous pour laisser un message.</p>
+                <header class="trick-page" style='background-image: url("{{ asset("img-tricks/default.jpg") }}");'>
+            {% endif %}
+            {% if app.user %}
+                <div class="float-right back-white border-black inline p10">
+                    <a href="{{ path('app_trick_update', {slug: trick.slug}) }}">
+                        <img src="/img/modify.png" alt="Modifier" class="icon">
+                    </a>
+                    <form action="{{ path('app_trick_delete', {id: trick.id}) }}" method="post" class="buttonlink">
+                        <input type="hidden" value="{{ csrf_token('trick_delete_' ~ trick.id) }}" name="csrf_token">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')">
+                            <img src="/img/delete.png" alt="Supprimer" class="icon">
+                        </button>
+                    </form>
                 </div>
             {% endif %}
-                <hr>
-                <div class="width50">
-                    {% for message in messages %}
-                        <div class="message">
-                            <div class="message-user">
-                                <div class="message-avatar">
-                                {% if message.user.pictureName %}
-                                    <img src="{{ asset("img-users/" ~ message.user.pictureName) }}" alt="image utilisateur">
-                                {% else %}
-                                    <img src="{{ asset("img-users/default.jpg") }}" alt="image utilisateur">
-                                {% endif %}
-                                </div>
-                                <p>{{ message.user.username }}, le {{ message.createdAt|date('d/m/Y, à H:i:s') }}</p>
-                            </div>
-                            <p class="message-content">{{ message.content }}</p>
-                        </div>
-                    {% else %}
-                        <p>Aucun message posté pour l'instant.</p>
+                <h1 class="relative top200">{{ trick.name }}</h1>
+            </header>
+            <section class="margin-y30">
+                <div class="flexbox-tight">
+                    {% for picture in trick.pictures %}
+                        <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                     {% endfor %}
-                    {% if previous >= 0 %}
-                        <a href="{{ path('app_trick_show', { slug: trick.slug, offset: previous }) }}">Previous</a>
-                    {% endif %}
-                    {% if next < messages|length %}
-                        <a href="{{ path('app_trick_show', { slug: trick.slug, offset: next }) }}">Next</a>
+                    {{ trick.tagsVideo | raw }}
+                </div>
+            </section>
+            <section class="margin-y30">
+                <div class="width70">
+                    <p>{{ trick.description }}</p>
+                </div>
+                <div class="flexbox width50">
+                    <div class="info">
+                        <p>Créé le {{ trick.createdAt|date('d/m/Y, à H:i:s') }}</p>
+                    </div>
+                    <div class="info">
+                        <p>{{ trick.relatedGroup.name }}</p>
+                    </div>
+                    {% if trick.modifiedAt %}
+                        <div class="info">
+                            <p>Modifié le {{ trick.modifiedAt|date('d/m/Y, à H:i:s') }}</p>
+                        </div>
                     {% endif %}
                 </div>
-        </section>
+            </section>
+            <hr>
+            <section class="margin-y30">
+                {% if app.user %}
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <input type="submit" value="Envoyer" class="button-blue margin-b30">
+                    {{ form_end(form) }}
+                {% else %}
+                    <div class="width50 text-center">
+                        <p>Connectez-vous pour laisser un message.</p>
+                    </div>
+                {% endif %}
+                    <hr>
+                    <div class="width50">
+                        {% for message in messages %}
+                            <div class="message">
+                                <div class="message-user">
+                                    <div class="message-avatar">
+                                    {% if message.user.pictureName %}
+                                        <img src="{{ asset("img-users/" ~ message.user.pictureName) }}" alt="image utilisateur">
+                                    {% else %}
+                                        <img src="{{ asset("img-users/default.jpg") }}" alt="image utilisateur">
+                                    {% endif %}
+                                    </div>
+                                    <p>{{ message.user.username }}, le {{ message.createdAt|date('d/m/Y, à H:i:s') }}</p>
+                                </div>
+                                <p class="message-content">{{ message.content }}</p>
+                            </div>
+                        {% else %}
+                            <p>Aucun message posté pour l'instant.</p>
+                        {% endfor %}
+                        {% if previous >= 0 %}
+                            <a href="{{ path('app_trick_show', { slug: trick.slug, offset: previous }) }}">Previous</a>
+                        {% endif %}
+                        {% if next < messages|length %}
+                            <a href="{{ path('app_trick_show', { slug: trick.slug, offset: next }) }}">Next</a>
+                        {% endif %}
+                    </div>
+            </section>
+        </div>
     </div>
 {% endblock %}

@@ -7,7 +7,7 @@ body {
     font-weight: 300;
     min-height: 100vh;
     position: relative;
-    padding-bottom: 40px;
+    padding-bottom: 0px;
 }
 
 nav {
@@ -314,6 +314,10 @@ header.trick-page {
     overflow: hidden;
 }
 
+.paddingb-200 {
+    padding-bottom: 200px;
+}
+
 .width100 {
     width: 100%;
 }
@@ -350,7 +354,6 @@ header.trick-page {
     margin-left: 15%;
     border: 2px black solid;
     background-color: white;
-    margin-bottom: 150px;
 }
 
 .top200 {
