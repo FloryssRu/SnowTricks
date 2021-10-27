@@ -463,7 +463,7 @@ input[type="checkbox"] {
     margin-right: auto;
     border-radius: 100px 100px;
     box-shadow: 0 0 5px 3px black;
-    margin-bottom: 70px;
+    margin-bottom: 30px;
 }
 
 .img-account {
@@ -474,4 +474,8 @@ input[type="checkbox"] {
 
 .marginb-50 {
     margin-bottom: 50px;
+}
+
+.paddingb-100 {
+    padding-bottom: 100px;
 }

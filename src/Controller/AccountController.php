@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Form\UserType;
+use App\Entity\User;
+use App\Form\PicturesType;
 use App\Services\HandlerAccount;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -24,13 +24,16 @@ class AccountController extends AbstractController
     {
         $user = $this->getUser();
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(PicturesType::class, $user, [
+            'data_class' => User::class,
+            'label_picture' => "Changer d'image"
+        ]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $picturename = $handlerAccount->userUpdatePicture($this->getUser(), $request->files->all()['user']['picture'], $slugger);
+
+            $picturename = $handlerAccount->userUpdatePicture($this->getUser(), $request->files->all()['pictures']['picturefile'], $slugger);
 
             $user->setPictureName($picturename);
 
