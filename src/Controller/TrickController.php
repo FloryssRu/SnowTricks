@@ -20,11 +20,11 @@ use DateTime;
 
 class TrickController extends AbstractController
 {
-    private EntityManagerInterface $em;
+    public $em;
 
     public function __construct(EntityManagerInterface $em)
     {
-        $this->$em = $em;
+        $this->em = $em;
     }
 
     /**
