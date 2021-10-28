@@ -37,7 +37,6 @@ class AccountController extends AbstractController
 
             $user->setPictureName($picturename);
 
-            $em->persist($user);
             $em->flush();
 
             $this->addflash('success', 'Votre image a bien été modifiée.');

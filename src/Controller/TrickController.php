@@ -87,7 +87,6 @@ class TrickController extends AbstractController
             $trick->setSlug($slugger->slug($trick->getName()));
             $trick->setModifiedAt(new DateTime());
 
-            $this->em->persist($trick);
             $this->em->flush();
 
             $this->addflash('success', 'La figure a bien été modifiée.');
