@@ -6,6 +6,7 @@ use App\Entity\Message;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Form\MessageType;
+use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
 use App\Services\HandlerPictures;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,17 +14,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use DateTime;
 
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/", name="app_trick_home", methods={"GET"})
+     * @Route("/", name="app_home", methods={"GET"})
      */
     public function index(TrickRepository $repo): Response
     {
-        $tricks = $repo->findAll(); //dd($tricks[1]);
+        $tricks = $repo->findAll();
         return $this->render('trick/index.html.twig', [
             'tricks' => $tricks
         ]);
@@ -31,6 +34,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/creation", name="app_trick_create", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures): Response
     {
@@ -39,7 +43,6 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $handlerPictures->savePictures($request->files->all()['trick']['pictures'], $trick, $slugger);
 
@@ -50,7 +53,7 @@ class TrickController extends AbstractController
 
             $this->addflash('success', 'La figure a bien été ajoutée.');
 
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('trick/create.html.twig', [
@@ -60,6 +63,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
     {
@@ -82,7 +86,7 @@ class TrickController extends AbstractController
 
             $this->addflash('success', 'La figure a bien été modifiée.');
 
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('trick/update.html.twig', [
@@ -93,6 +97,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
@@ -103,22 +108,21 @@ class TrickController extends AbstractController
 
         $this->addflash('success', 'Le trick a bien été supprimé.');
 
-        return $this->redirectToRoute('app_trick_home');
+        return $this->redirectToRoute('app_home');
     }
 
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, EntityManagerInterface $em, Trick $trick): Response
+    public function show(Request $request, EntityManagerInterface $em, Trick $trick, string $slug, MessageRepository $messageRepo): Response
     {
         $message = new Message();
 
         $form = $this->createForm(MessageType::class, $message);
-
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //attribuer le message à l'utilisateur connecté
             $message->setUser($this->getUser());
 
             $message->setTrick($trick);
@@ -128,12 +132,18 @@ class TrickController extends AbstractController
 
             $this->addflash('success', 'Votre message a bien été ajouté.');
 
-            return $this->redirectToRoute('app_trick_home');
+            return $this->redirectToRoute('app_trick_show', ['slug' => $slug]);
         }
+
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $messageRepo->getMessagePaginator($trick, $offset);
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'messages' => $paginator,
+            'previous' => $offset - MessageRepository::MESSAGES_PER_PAGE,
+            'next' => min(count($paginator), $offset + MessageRepository::MESSAGES_PER_PAGE)
         ]);
     }
 }
