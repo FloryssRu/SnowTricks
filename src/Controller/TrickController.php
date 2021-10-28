@@ -20,6 +20,13 @@ use DateTime;
 
 class TrickController extends AbstractController
 {
+    private EntityManagerInterface $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->$em = $em;
+    }
+
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
@@ -35,7 +42,7 @@ class TrickController extends AbstractController
      * @Route("/figure/creation", name="app_trick_create", methods={"GET", "POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function create(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures): Response
+    public function create(Request $request, SluggerInterface $slugger, HandlerPictures $handlerPictures): Response
     {
         $trick = new Trick();
 
@@ -47,8 +54,8 @@ class TrickController extends AbstractController
 
             $trick->setSlug($slugger->slug($trick->getName()));
 
-            $em->persist($trick);
-            $em->flush();
+            $this->em->persist($trick);
+            $this->em->flush();
 
             $this->addflash('success', 'La figure a bien été ajoutée.');
 
@@ -64,7 +71,7 @@ class TrickController extends AbstractController
      * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function update(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
+    public function update(Request $request, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick, [
             'label_pictures' => 'Remplacer les images déjà ajoutées',
@@ -80,8 +87,8 @@ class TrickController extends AbstractController
             $trick->setSlug($slugger->slug($trick->getName()));
             $trick->setModifiedAt(new DateTime());
 
-            $em->persist($trick);
-            $em->flush();
+            $this->em->persist($trick);
+            $this->em->flush();
 
             $this->addflash('success', 'La figure a bien été modifiée.');
 
@@ -98,11 +105,11 @@ class TrickController extends AbstractController
      * @Route("/figure/delete/{id<[0-9]+>}", name="app_trick_delete", methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
+    public function delete(Request $request, Trick $trick): Response
     {
         if ($this->isCsrfTokenValid('trick_delete_' . $trick->getId(), $request->request->get('csrf_token'))) {
-            $em->remove($trick);
-            $em->flush();
+            $this->em->remove($trick);
+            $this->em->flush();
         }
 
         $this->addflash('success', 'Le trick a bien été supprimé.');
@@ -113,7 +120,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/figure/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, EntityManagerInterface $em, Trick $trick, string $slug, MessageRepository $messageRepo): Response
+    public function show(Request $request, Trick $trick, MessageRepository $messageRepo): Response
     {
         $message = new Message();
 
@@ -126,12 +133,12 @@ class TrickController extends AbstractController
 
             $message->setTrick($trick);
 
-            $em->persist($message);
-            $em->flush();
+            $this->em->persist($message);
+            $this->em->flush();
 
             $this->addflash('success', 'Votre message a bien été ajouté.');
 
-            return $this->redirectToRoute('app_trick_show', ['slug' => $slug]);
+            return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
         }
 
         $offset = max(0, $request->query->getInt('offset', 0));
