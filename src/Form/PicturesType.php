@@ -17,7 +17,7 @@ class PicturesType extends AbstractType
             ->add('picturefile', FileType::class, [
                 'required' => true,
                 'mapped' => false,
-                'label' => 'Image',
+                'label' => $options['label_picture'],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -36,6 +36,7 @@ class PicturesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Picture::class,
+            'label_picture' => 'Image'
         ]);
     }
 }
