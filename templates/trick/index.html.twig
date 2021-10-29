@@ -37,10 +37,10 @@
             <p>Aucun trick publié !</p>
         {% endfor %}
     </section>
-    <button id="followingtricks" class="button-blue">Plus de tricks !</button>
-    {% if tricks|length > 15 %}
+    <div class="paddingb-100">
+        <button id="followingtricks" class="button-blue">Plus de tricks !</button>
         <a id="arrow_up" class="arrow" href="#tricks"><img src="/img/arrow_up.png" alt="monter"></a>
-    {% endif %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

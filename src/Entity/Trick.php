@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\TrickRepository;
 use App\Entity\Picture;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
