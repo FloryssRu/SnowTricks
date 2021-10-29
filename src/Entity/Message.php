@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\MessageRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,7 +25,8 @@ class Message
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank(
-     *      message = "La date ne doit pas être vide."
+     *      message = "La date ne doit pas être vide.",
+     *      groups = "not-in-message-form"
      * )
      * @Assert\NotNull(
      *      message = "La date ne doit pas être null."
@@ -69,7 +69,7 @@ class Message
     private Trick $trick;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
      *      message = "Le message doit être relié à un utilisateur.",
@@ -93,19 +93,19 @@ class Message
         return $this->id;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(string $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -117,24 +117,24 @@ class Message
         return $this;
     }
 
-    public function getTrick(): ?Trick
+    public function getTrick(): Trick
     {
         return $this->trick;
     }
 
-    public function setTrick(?Trick $trick): self
+    public function setTrick(Trick $trick): self
     {
         $this->trick = $trick;
 
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 

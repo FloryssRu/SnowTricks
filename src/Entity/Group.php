@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,7 +54,7 @@ class Group
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -88,9 +87,8 @@ class Group
     public function removeTrick(Trick $trick): self
     {
         if ($this->trick->removeElement($trick)) {
-            // set the owning side to null (unless already changed)
             if ($trick->getRelatedGroup() === $this) {
-                $trick->setRelatedGroup(null);
+                // do something
             }
         }
 

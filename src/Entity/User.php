@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -130,7 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
      */
-    private Collection $message;
+    private Collection $messages;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -177,7 +176,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->username;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -230,7 +229,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -258,15 +256,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection|Message[]
      */
-    public function getMessage(): Collection
+    public function getMessages(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
     public function addMessage(Message $message): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
             $message->setUser($this);
         }
 
@@ -275,10 +273,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeMessage(Message $message): self
     {
-        if ($this->message->removeElement($message)) {
-            // set the owning side to null (unless already changed)
+        if ($this->messages->removeElement($message)) {
             if ($message->getUser() === $this) {
-                $message->setUser(null);
+                // do something
             }
         }
 

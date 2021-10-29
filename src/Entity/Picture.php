@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Entity\Trick;
-use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -31,10 +30,12 @@ class Picture
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(
-     *      message = "Le nom ne doit pas être vide."
+     *      message = "Le nom ne doit pas être vide.",
+     *      groups = "not-in-picture-form"
      * )
      * @Assert\NotNull(
-     *      message = "Le nom ne doit pas être null."
+     *      message = "Le nom ne doit pas être null.",
+     *      groups = "not-in-picture-form"
      * )
      * @Assert\Type(
      *     type = "string",
@@ -47,10 +48,12 @@ class Picture
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
-     *      message = "L'image doit être reliée à un trick."
+     *      message = "L'image doit être reliée à un trick.",
+     *      groups = "not-in-picture-form"
      * )
      * @Assert\NotNull(
-     *      message = "L'image doit être reliée à un trick."
+     *      message = "L'image doit être reliée à un trick.",
+     *      groups = "not-in-picture-form"
      * )
      * @Assert\Type("App\Entity\Trick")
      */
@@ -61,7 +64,7 @@ class Picture
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -73,12 +76,12 @@ class Picture
         return $this;
     }
 
-    public function getTrick(): ?Trick
+    public function getTrick(): Trick
     {
         return $this->trick;
     }
 
-    public function setTrick(?Trick $trick): self
+    public function setTrick(Trick $trick): self
     {
         $this->trick = $trick;
 

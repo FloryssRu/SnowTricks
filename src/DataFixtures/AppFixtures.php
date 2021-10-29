@@ -8,14 +8,16 @@ use App\Entity\Trick;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\PasswordHasherEncoder;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager): void //problème ici soulevé par le serveur symfony
+    //fonction gettrickdata() retourne un tableau de données
+    //fonction à appeler dans load où on fera juste un foreach
+
+    public function load(ObjectManager $manager): void
     {
-        //, PasswordHasherEncoder $hasher, SluggerInterface $slugger
+        //, SluggerInterface $slugger
         // ---------------------- User
 
         $user = new User();
