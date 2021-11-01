@@ -181,7 +181,7 @@ class AppFixtures extends Fixture
 
             $picture
                 ->setName($pictureName)
-                ->setTrick($trick) // vérifier si ça marche bien
+                ->setTrick($trick)
             ;
 
             $trick

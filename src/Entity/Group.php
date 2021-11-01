@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -89,7 +88,7 @@ class Group
     {
         if ($this->trick->removeElement($trick)) {
             if ($trick->getRelatedGroup() === $this) {
-                // do something
+                $trick->setRelatedGroup(null);
             }
         }
 

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\TrickRepository;
 use App\Entity\Picture;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -233,7 +232,7 @@ class Trick
     {
         if ($this->pictures->removeElement($picture)) {
             if ($picture->getTrick() === $this) {
-                // do something
+                $picture->setTrick(null);
             }
         }
 
@@ -280,7 +279,7 @@ class Trick
     {
         if ($this->messages->removeElement($message)) {
             if ($message->getTrick() === $this) {
-                // do something
+                $message->setTrick(null);
             }
         }
 

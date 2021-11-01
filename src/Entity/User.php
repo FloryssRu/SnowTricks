@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -276,7 +275,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->messages->removeElement($message)) {
             if ($message->getUser() === $this) {
-                // do something
+                $message->setUser(null);
             }
         }
 
