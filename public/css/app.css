@@ -170,6 +170,21 @@ input[type="checkbox"] + label {
     cursor: pointer;
 }
 
+.button-red {
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    background-color: #EC1717;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
 .margin-y30 {
     margin-bottom: 30px;
     margin-top: 30px;
@@ -196,6 +211,11 @@ input[type="checkbox"] + label {
     width: 200px;
 }
 
+.flexbox-tight > div > img {
+    width: 200px;
+    display: block;
+}
+
 .buttonlink {
     display: inline;
 }
@@ -219,6 +239,10 @@ footer {
     position: absolute;
     bottom: 0px;
     width: 98%;
+}
+
+.display-none {
+    display: none;
 }
 
 
@@ -445,6 +469,10 @@ p.message-content {
     width: 150px;
     margin-right: 10px;
     margin-bottom: 20px;
+}
+
+.height400 {
+    height: 400px;
 }
 
 /* authentication */

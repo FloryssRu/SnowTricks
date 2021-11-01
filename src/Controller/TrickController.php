@@ -8,6 +8,7 @@ use App\Form\TrickType;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
+use App\Services\HandlerFormPictures;
 use App\Services\HandlerPictures;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,12 +72,13 @@ class TrickController extends AbstractController
      * @Route("/figure/modification/{slug<[0-9a-zA-Z\-]+>}", name="app_trick_update", methods={"GET", "POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function update(Request $request, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
+    public function update(Request $request, SluggerInterface $slugger, HandlerPictures $handlerPictures, HandlerFormPictures $handlerFormPictures, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick, [
-            'label_pictures' => 'Remplacer les images déjà ajoutées',
             'required_pictures' => false
         ]);
+
+        $formsPictures = $handlerFormPictures->createFormForeachPicture($trick);
 
         $form->handleRequest($request);
 
@@ -96,7 +98,8 @@ class TrickController extends AbstractController
 
         return $this->render('trick/update.html.twig', [
             'trick' => $trick,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formsPictures' => $handlerFormPictures->createView($formsPictures)
         ]);
     }
 

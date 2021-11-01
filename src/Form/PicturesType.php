@@ -15,7 +15,7 @@ class PicturesType extends AbstractType
     {
         $builder
             ->add('picturefile', FileType::class, [
-                'required' => true,
+                'required' => $options['required'],
                 'mapped' => false,
                 'label' => $options['label_picture'],
                 'constraints' => [
@@ -36,6 +36,7 @@ class PicturesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Picture::class,
+            'required' => true,
             'label_picture' => 'Image'
         ]);
     }

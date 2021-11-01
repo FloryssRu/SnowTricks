@@ -3,33 +3,85 @@
 {% block title %}Modifier {{ trick.name }}{% endblock %}
 
 {% block body %}
-    <h1>Modifier {{ trick.name }}</h1>
-    <section class="paddingb-100">
-        {{ form_start(form) }}
-            {{ form_row(form.name) }}
-            {{ form_row(form.description) }}
-            <div id="pictures-fields-list"
-                data-prototype="{{ form_widget(form.pictures.vars.prototype)|e }}"
-                data-widget-tags="{{ '<p></p>'|e }}"
-                data-widget-counter="{{ form.pictures|length }}">
-                {{ form_row(form.pictures) }}
-                {% for picture in trick.pictures %}
-                    <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure" class="img-update-trick">
-                {% endfor %}
-            </div>
-
-            <button type="button" class="add-another-collection-widget margin-y30 tiny-button-blue" data-list-selector="#pictures-fields-list">
-                Ajouter une autre photo
-            </button>
+<img src="/img/gradient_blue.png" class="width100 absolute z-index-2">
+    <div class="paddingb-200">
+        <div class="main-content">
+            {{ form_start(form, {'attr': {'class': 'width100'}}) }}
+                {% if trick.pictures.first() %}
+                    {% set pictureHeader = trick.pictures.first() %}
+                    <header class="trick-page" style='background-image: url("{{ asset("img-tricks/" ~ pictureHeader.name) }}");'>
+                {% else %}
+                    <header class="trick-page" style='background-image: url("{{ asset("img-tricks/default.jpg") }}");'>
+                {% endif %}
+                    <h1 class="relative top200">Modifier "{{ trick.name }}"</h1>
+                </header>
             
-            {{ form_row(form.tagsVideo) }}
-            {{ form_row(form.relatedGroup) }}
-            <input type="submit" value="Modifier !" class="button-blue">
-        {{ form_end(form) }}
-    </section>
+                <section class="margin-y30">
+                    <div class="flexbox-tight" id="counter">
+                        {% for i, picture in trick.pictures %}
+                            {# si on clique sur #modify on cache ce div et on affiche le "{{ i }}_modify" #}
+                            {# si on clique sur #delete on cache ce div et on affiche le "{{ i }}_delete" #}
+                            <div id="{{ i }}">
+                                <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
+                                <div class="float-right back-white border-black inline p10">
+                                    <img src="/img/modify.png" alt="Modifier" class="icon" id="modify">
+                                    <img src="/img/delete.png" alt="Supprimer" class="icon" id="delete">
+                                </div>
+                            </div>
+                            <div id="{{ i }}_modify">
+                                {% for picturename, formPicture in formsPictures %}
+                                    {% if picturename == picture.name %}
+                                        {{ form_start(formPicture) }}
+                                            {{ form_row(formPicture.picturefile) }}
+                                            <input type="submit" value="Changer l'image" class="button-blue">
+                                        {{ form_end(formPicture) }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div id="{{ i }}_delete">
+                                On va supprimer cette image
+                            </div>
+                        {% endfor %}
+                        {{ trick.tagsVideo | raw }}
+                    </div>
+                </section>
+                <section class="margin-y30">
+                    <div class="flexbox width50">
+                        <div class="info">
+                            <p>Créé le {{ trick.createdAt|date('d/m/Y, à H:i:s') }}</p>
+                        </div>
+                        <div class="info">
+                            <p>{{ trick.relatedGroup.name }}</p>
+                        </div>
+                        {% if trick.modifiedAt %}
+                            <div class="info">
+                                <p>Modifié le {{ trick.modifiedAt|date('d/m/Y, à H:i:s') }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="width70">
+                        {{ form_row(form.description, { 'attr': {'class': 'height400'}}) }}
+                        {{ form_row(form.relatedGroup) }}
+                    </div>
+                    
+                </section>
+                <input type="submit" value="Modifier !" class="button-blue marginb-50">
+                {{ form(form.name, {'attr': {'class': 'display-none'}}) }}
+                {{ form(form.pictures, {'attr': {'class': 'display-none'}}) }}
+                {{ form(form.tagsVideo, {'attr': {'class': 'display-none'}}) }}
+            {{ form_end(form) }}
+            <form action="{{ path('app_trick_delete', {id: trick.id}) }}" method="post">
+                <input type="hidden" value="{{ csrf_token('trick_delete_' ~ trick.id) }}" name="csrf_token">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="button-red" onclick="return confirm('Voulez-vous vraiment effacer ce trick ?')">
+                    Supprimer
+                </button>
+            </form>
+        </div>    
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="/jquery/add-collection-widget.js"></script>
+    <script src="/jquery/update_trick_page.js"></script>
 {% endblock %}
