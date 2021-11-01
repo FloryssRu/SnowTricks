@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\TrickRepository;
 use App\Entity\Picture;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -131,7 +132,7 @@ class Trick
     private Collection $messages;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="trick")
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="trick", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
      *      message = "Vous devez joindre la figure à un groupe."

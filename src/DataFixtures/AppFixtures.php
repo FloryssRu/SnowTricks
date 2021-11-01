@@ -164,7 +164,7 @@ class AppFixtures extends Fixture
                 <iframe src="https://www.youtube.com/embed/lN5EeiomqkQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <iframe src="https://www.youtube.com/embed/D53buuJO9ZI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                 $group3,
-                'sidedlipping.jpg'
+                'sideslipping.jpg'
             ],
         ];
 
@@ -192,6 +192,10 @@ class AppFixtures extends Fixture
                 ->setTagsVideo($tagsVideo)
                 ->setRelatedGroup($group)
             ;
+            
+            $manager->persist($trick);
+            $manager->persist($picture);
+            $manager->flush();
         }
 
     }
