@@ -21,7 +21,23 @@
     </head>
     <body>
         <nav>
-            <img src="/img/icon.png" alt="icon">
+            <div class="width33">
+                <img src="/img/icon.png" alt="icon">
+            </div>
+            <div class="width33">
+                <img class="for-smartphone menu-smartphone" src="/img/menu.png" alt="menu" id="menu-smartphone">
+            </div>
+            <div class="width33">
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}">
+                        <img class="for-smartphone third-icon" src="/img/logout.png" alt="menu">
+                    </a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">
+                        <img class="for-smartphone third-icon" src="/img/login.png" alt="menu">
+                    </a>
+                {% endif %}
+            </div>
             <ul>
                 <li><a href="{{ path('app_home') }}">Accueil</a></li>
                 <li><a href="{{ path('app_home') }}#tricks">Figures</a></li>
@@ -56,6 +72,7 @@
         {% block javascripts %}
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="/jquery/flash-messages.js"></script>
+            <script src="/jquery/menu-for-smartphone.js"></script>
         {% endblock %}
     </body>
 </html>
