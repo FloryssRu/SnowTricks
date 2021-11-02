@@ -19,27 +19,24 @@
                 <section class="margin-y30">
                     <div class="flexbox-tight" id="counter">
                         {% for i, picture in trick.pictures %}
-                            {# si on clique sur #modify on cache ce div et on affiche le "{{ i }}_modify" #}
-                            {# si on clique sur #delete on cache ce div et on affiche le "{{ i }}_delete" #}
-                            <div id="{{ i }}">
+                            <div id="{{ i }}" class="to-count">
                                 <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                                 <div class="float-right back-white border-black inline p10">
                                     <img src="/img/modify.png" alt="Modifier" class="icon" id="modify">
                                     <img src="/img/delete.png" alt="Supprimer" class="icon" id="delete">
                                 </div>
                             </div>
-                            <div id="{{ i }}_modify">
-                                {% for picturename, formPicture in formsPictures %}
-                                    {% if picturename == picture.name %}
-                                        {{ form_start(formPicture) }}
-                                            {{ form_row(formPicture.picturefile) }}
-                                            <input type="submit" value="Changer l'image" class="button-blue">
-                                        {{ form_end(formPicture) }}
-                                    {% endif %}
-                                {% endfor %}
+                            <div id="{{ i }}_modify" class="to-count">
+                                {# for picturefield in form_row(form.pictures) %}
+                                    {{ picturefield }}
+                                    <input type="submit" value="Changer l'image" class="button-blue">
+                                {% endfor #}
                             </div>
-                            <div id="{{ i }}_delete">
-                                On va supprimer cette image
+                            <div id="{{ i }}_delete" class="to-count">
+                                Cette image sera supprimée.
+                                <button type="submit" class="button-red" onclick="return confirm('Voulez-vous vraiment effacer cette image ?')">
+                                    Supprimer
+                                </button>
                             </div>
                         {% endfor %}
                         {{ trick.tagsVideo | raw }}

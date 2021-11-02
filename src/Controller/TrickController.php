@@ -78,7 +78,7 @@ class TrickController extends AbstractController
             'required_pictures' => false
         ]);
 
-        $formsPictures = $handlerFormPictures->createFormForeachPicture($trick);
+        //$formsPictures = $handlerFormPictures->createFormForeachPicture($trick);
 
         $form->handleRequest($request);
 
@@ -99,7 +99,7 @@ class TrickController extends AbstractController
         return $this->render('trick/update.html.twig', [
             'trick' => $trick,
             'form' => $form->createView(),
-            'formsPictures' => $handlerFormPictures->createView($formsPictures)
+            //'formsPictures' => $handlerFormPictures->createView($formsPictures)
         ]);
     }
 
