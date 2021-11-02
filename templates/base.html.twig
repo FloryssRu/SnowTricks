@@ -35,15 +35,17 @@
                 {% endif %}
             </ul>
         </nav>
-        <div class="flash-container">
-            {% for type, messages in app.flashes %}
-                {% for key, message in messages %}
-                    <div class="flash flash-{{ type }}" id="flash">
-                        <p>{{ message }}</p>
-                        <img src="/img/cross.png" alt="fermer" class="flash-img-close" id="close">
-                    </div>
+        <div class="flash-parent">
+            <div class="flash-container">
+                {% for type, messages in app.flashes %}
+                    {% for i, message in messages %}
+                        <div class="flash flash-{{ type }}" id="{{ i }}_flash">
+                            <p>{{ message }}</p>
+                            <img src="/img/cross.png" alt="fermer" class="flash-img-close" id="{{ i }}_close">
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
+            </div>
         </div>
         {% block body %}{% endblock %}
 
