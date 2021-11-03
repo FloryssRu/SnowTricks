@@ -3,8 +3,8 @@
 {% block title %}Modifier {{ trick.name }}{% endblock %}
 
 {% block body %}
-<img src="/img/gradient_blue.png" class="width100 absolute z-index-2">
-    <div class="paddingb-200">
+<img src="/img/gradient_blue.png" class="width100 absolute z-index-2 not-for-smartphone">
+    <div class="paddingb-200 paddingt-10-smartphone">
         <div class="main-content">
             {{ form_start(form, {'attr': {'class': 'width100'}}) }}
                 {% if trick.pictures.first() %}
@@ -13,10 +13,12 @@
                 {% else %}
                     <header class="trick-page" style='background-image: url("{{ asset("img-tricks/default.jpg") }}");'>
                 {% endif %}
-                    <h1 class="relative top200">Modifier "{{ trick.name }}"</h1>
+                    <h1 class="relative top200-laptop top80-smartphone">Modifier "{{ trick.name }}"</h1>
                 </header>
             
-                <section class="margin-y30">
+                <button id="show_medias" class="for-smartphone button-blue">Voir les médias</button>
+                
+                <section class="margin-y30 not-for-smartphone" id="medias">
                     <div class="flexbox-tight" id="counter">
                         {% set counter = 0 %}
                         {% for i, picture in trick.pictures %}
@@ -80,4 +82,5 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="/jquery/update_trick_page.js"></script>
+    <script src="/jquery/hide_medias.js"></script>
 {% endblock %}

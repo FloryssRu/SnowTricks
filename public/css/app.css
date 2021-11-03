@@ -314,7 +314,7 @@ footer {
     position: relative;
 }
 
-.top200 {
+.top200, .top200-laptop {
     top: 200px;
 }
 
@@ -451,6 +451,7 @@ div.info {
     padding-left: 15px;
     padding-right: 15px;
     color: white;
+    margin-bottom : 30px;
 }
 
 .iframe {
@@ -533,6 +534,10 @@ input[type="checkbox"] {
         display: initial;
     }
 
+    .not-for-smartphone {
+        display: none;
+    }
+
     nav {
         position: fixed;
         bottom: 0px;
@@ -580,8 +585,44 @@ input[type="checkbox"] {
         width: 33%;
     }
 
+    .button-blue {
+        display: block;
+    }
+
     footer {
         display: none;
+    }
+
+    /* create trick page */
+    
+    form {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* unique trick page */
+
+    .main-content {
+        margin-top: 10px;
+        margin-left: 5%;
+        width:90%;
+    }
+
+    .paddingt-10-smartphone {
+        padding-top: 10px;
+    }
+
+    header.trick-page {
+        height: 300px;
+    }
+
+    .top50-smartphone {
+        top: 50px;
+    }
+
+    .top80-smartphone {
+        top: 80px;
     }
 }
 
