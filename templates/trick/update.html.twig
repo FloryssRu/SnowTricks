@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Modifier {{ trick.name }}</h1>
-    <section>
+    <section class="paddingb-100">
         {{ form_start(form) }}
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
@@ -30,5 +30,6 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script src="/jquery/add-collection-widget.js"></script>
 {% endblock %}

@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    $("#arrow_up").hide(0);
+
     $("#followingtricks").hide(0);
     var tricks = $("#tricks article");
 
@@ -14,7 +16,9 @@ $(document).ready(function() {
             
             if (tricks.length <= tricks_show) {
                 $("#followingtricks").hide(0);
-            }
+            };
+
+            $("#arrow_up").show(0);
         });
     }
 });

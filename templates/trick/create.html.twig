@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Ajouter une nouvelle figure</h1>
-    <section>
+    <section class="paddingb-100">
         {{ form_start(form) }}
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
@@ -37,6 +37,6 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/jquery/add-collection-widget.js"></script>
+    {{ parent() }}
+    <script src="/jquery/add-collection-widget.js"></script>
 {% endblock %}

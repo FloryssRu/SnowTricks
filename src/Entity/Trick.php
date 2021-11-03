@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Picture;
 use App\Repository\TrickRepository;
+use App\Entity\Picture;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -131,7 +132,7 @@ class Trick
     private Collection $messages;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="trick")
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="trick", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(
      *      message = "Vous devez joindre la figure à un groupe."
@@ -174,7 +175,7 @@ class Trick
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -186,7 +187,7 @@ class Trick
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -198,7 +199,7 @@ class Trick
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -231,7 +232,6 @@ class Trick
     public function removePicture(Picture $picture): self
     {
         if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
             if ($picture->getTrick() === $this) {
                 $picture->setTrick(null);
             }
@@ -246,7 +246,7 @@ class Trick
         return $this;
     }
 
-    public function getTagsVideo(): ?string
+    public function getTagsVideo(): string
     {
         return $this->tagsVideo;
     }
@@ -279,7 +279,6 @@ class Trick
     public function removeMessage(Message $message): self
     {
         if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
             if ($message->getTrick() === $this) {
                 $message->setTrick(null);
             }
@@ -288,36 +287,36 @@ class Trick
         return $this;
     }
 
-    public function getRelatedGroup(): ?Group
+    public function getRelatedGroup(): Group
     {
         return $this->relatedGroup;
     }
 
-    public function setRelatedGroup(?Group $relatedGroup): self
+    public function setRelatedGroup(Group $relatedGroup): self
     {
         $this->relatedGroup = $relatedGroup;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeInterface
+    public function getModifiedAt(): ?DateTimeInterface
     {
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    public function setModifiedAt(?DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 
