@@ -30,7 +30,8 @@ class TrickType extends AbstractType
                     'required' => $options['required_pictures']
                 ],
                 'by_reference' => false,
-                'allow_add' => true
+                'allow_add' => true,
+                'allow_delete' => true
             ])
             ->add('tagsVideo', TextareaType::class, [
                 'label' => 'Balise(s) <iframe> de vidéos en ligne (sans attributs width et height)'

@@ -233,7 +233,9 @@ class Trick
     {
         if ($this->pictures->removeElement($picture)) {
             if ($picture->getTrick() === $this) {
-                $picture->setTrick(null);
+                // problem : when we delete a picture in trick update form, the picture is not really deleted...
+                $this->pictures->removeElement($picture); // line to test form
+                //$picture->setTrick(null);
             }
         }
 

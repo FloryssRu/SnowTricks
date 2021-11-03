@@ -24,16 +24,12 @@
                                 <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                                 <div class="float-right back-white border-black inline p10">
                                     <img src="/img/modify.png" alt="Modifier" class="icon" id="clicker_{{ i }}_modify">
-                                    <img src="/img/delete.png" alt="Supprimer" class="icon" id="clicker_{{ i }}_delete">
+                                    <img src="/img/delete.png" alt="Supprimer" class="icon" id="clicker_{{ i }}_delete" onclick="return confirm('Voulez-vous vraiment effacer cette image ?')">
                                 </div>
                             </div>
                             <div id="{{ i }}_modify" class="to-count">
-                            {{ form_row(form.pictures[counter].picturefile) }}
+                                {{ form_row(form.pictures[counter].picturefile) }}
                             <div class="button-blue" id="clicker_{{ i }}_modify-cancel">Retour</div>
-                            </div>
-                            <div id="{{ i }}_delete" class="to-count">
-                                Cette image sera supprimée.
-                                <div class="button-blue" id="clicker_{{ i }}_delete-cancel">Retour</div>
                             </div>
                             {% set counter = counter + 1 %}
                         {% endfor %}

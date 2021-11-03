@@ -18,13 +18,8 @@ $(document).ready(function() {
         });
 
         $("#clicker_" + i + "_delete").click(function(){
-            $("#" + i).hide(0);
-            $("#" + i + "_delete").show(0);
-        });
-
-        $("#clicker_" + i + "_delete-cancel").click(function(){
-            $("#" + i).show(0);
-            $("#" + i + "_delete").hide(0);
+            $("#" + i).remove(0);
+            $("#" + i + "_modify").remove(0);
         });
     }
 });
