@@ -18,26 +18,24 @@
             
                 <section class="margin-y30">
                     <div class="flexbox-tight" id="counter">
+                        {% set counter = 0 %}
                         {% for i, picture in trick.pictures %}
                             <div id="{{ i }}" class="to-count">
                                 <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                                 <div class="float-right back-white border-black inline p10">
-                                    <img src="/img/modify.png" alt="Modifier" class="icon" id="modify">
-                                    <img src="/img/delete.png" alt="Supprimer" class="icon" id="delete">
+                                    <img src="/img/modify.png" alt="Modifier" class="icon" id="clicker_{{ i }}_modify">
+                                    <img src="/img/delete.png" alt="Supprimer" class="icon" id="clicker_{{ i }}_delete">
                                 </div>
                             </div>
                             <div id="{{ i }}_modify" class="to-count">
-                                {# for picturefield in form_row(form.pictures) %}
-                                    {{ picturefield }}
-                                    <input type="submit" value="Changer l'image" class="button-blue">
-                                {% endfor #}
+                            {{ form_row(form.pictures[counter].picturefile) }}
+                            <div class="button-blue" id="clicker_{{ i }}_modify-cancel">Retour</div>
                             </div>
                             <div id="{{ i }}_delete" class="to-count">
                                 Cette image sera supprimée.
-                                <button type="submit" class="button-red" onclick="return confirm('Voulez-vous vraiment effacer cette image ?')">
-                                    Supprimer
-                                </button>
+                                <div class="button-blue" id="clicker_{{ i }}_delete-cancel">Retour</div>
                             </div>
+                            {% set counter = counter + 1 %}
                         {% endfor %}
                         {{ trick.tagsVideo | raw }}
                     </div>
@@ -62,11 +60,14 @@
                     </div>
                     
                 </section>
+                
+                <div class="display-none">
+                    {{ form_rest(form) }}
+                </div>
+
                 <input type="submit" value="Modifier !" class="button-blue marginb-50">
-                {{ form(form.name, {'attr': {'class': 'display-none'}}) }}
-                {{ form(form.pictures, {'attr': {'class': 'display-none'}}) }}
-                {{ form(form.tagsVideo, {'attr': {'class': 'display-none'}}) }}
             {{ form_end(form) }}
+
             <form action="{{ path('app_trick_delete', {id: trick.id}) }}" method="post">
                 <input type="hidden" value="{{ csrf_token('trick_delete_' ~ trick.id) }}" name="csrf_token">
                 <input type="hidden" name="_method" value="DELETE">

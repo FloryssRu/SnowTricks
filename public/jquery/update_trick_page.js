@@ -7,14 +7,24 @@ $(document).ready(function() {
         $("#" + i + "_modify").hide(0);
         $("#" + i + "_delete").hide(0);
 
-        $("#modify").click(function(){
+        $("#clicker_" + i + "_modify").click(function(){
             $("#" + i).hide(0);
             $("#" + i + "_modify").show(0);
         });
 
-        $("#delete").click(function(){
+        $("#clicker_" + i + "_modify-cancel").click(function(){
+            $("#" + i).show(0);
+            $("#" + i + "_modify").hide(0);
+        });
+
+        $("#clicker_" + i + "_delete").click(function(){
             $("#" + i).hide(0);
             $("#" + i + "_delete").show(0);
+        });
+
+        $("#clicker_" + i + "_delete-cancel").click(function(){
+            $("#" + i).show(0);
+            $("#" + i + "_delete").hide(0);
         });
     }
 });
