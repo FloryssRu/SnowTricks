@@ -1,7 +1,7 @@
 /* ----------------------- for all pages*/
 
 .for-smartphone {
-    display: none;
+    display: none !important;
 }
 
 .width33_smartphone {
@@ -531,7 +531,7 @@ input[type="checkbox"] {
 /* smartphones */
 @media screen and (max-width: 812px) {
     .for-smartphone {
-        display: initial;
+        display: block !important;
     }
 
     .not-for-smartphone {
@@ -623,6 +623,18 @@ input[type="checkbox"] {
 
     .top80-smartphone {
         top: 80px;
+    }
+
+    .width90-smartphone {
+        margin-left: 5%;
+        margin-right: 5%;
+        width: 90%;
+    }
+
+    .message {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 

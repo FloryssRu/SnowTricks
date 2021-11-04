@@ -22,7 +22,7 @@
     <body>
         <nav>
             <div class="width33_smartphone">
-                <img src="/img/icon.png" alt="icon">
+                <a href="{{ path('app_home') }}"><img src="/img/icon.png" alt="icon"></a>
             </div>
             <div class="width33_smartphone">
                 <img class="for-smartphone menu-smartphone" src="/img/menu.png" alt="menu" id="menu-smartphone">
@@ -51,20 +51,18 @@
                 {% endif %}
             </ul>
         </nav>
-        {% if app.flashes %}
-            <div class="flash-parent">
-                <div class="flash-container">
-                    {% for type, messages in app.flashes %}
-                        {% for i, message in messages %}
-                            <div class="flash flash-{{ type }}" id="{{ i }}_flash">
-                                <p>{{ message }}</p>
-                                <img src="/img/cross.png" alt="fermer" class="flash-img-close" id="{{ i }}_close">
-                            </div>
-                        {% endfor %}
+        <div class="flash-parent">
+            <div class="flash-container">
+                {% for type, messages in app.flashes %}
+                    {% for i, message in messages %}
+                        <div class="flash flash-{{ type }}" id="{{ i }}_flash">
+                            <p>{{ message }}</p>
+                            <img src="/img/cross.png" alt="fermer" class="flash-img-close" id="{{ i }}_close">
+                        </div>
                     {% endfor %}
-                </div>
+                {% endfor %}
             </div>
-        {% endif %}
+        </div>
         {% block body %}{% endblock %}
 
         <footer>

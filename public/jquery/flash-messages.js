@@ -6,7 +6,11 @@ $(document).ready(function(){
 
         $("#" + i + "_close").click(function(){
             $("#" + i + "_flash").animate({opacity: '0', height: '0', margin: '0px', padding: '0px'}, 400);
-        });
+            flash_messages_number = flash_messages_number - 1;
 
+            if (flash_messages_number == 0) {
+                $(".flash-parent").hide(0);
+            }
+        });
     }
 });

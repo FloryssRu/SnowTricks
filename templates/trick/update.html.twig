@@ -16,13 +16,13 @@
                     <h1 class="relative top200-laptop top80-smartphone">Modifier "{{ trick.name }}"</h1>
                 </header>
             
-                <button id="show_medias" class="for-smartphone button-blue">Voir les médias</button>
+                <div id="show_medias" class="for-smartphone button-blue display-none-latop">Voir les médias</div>
                 
                 <section class="margin-y30 not-for-smartphone" id="medias">
                     <div class="flexbox-tight" id="counter">
                         {% set counter = 0 %}
                         {% for i, picture in trick.pictures %}
-                            <div id="{{ i }}" class="to-count">
+                            <div id="{{ i }}" class="to-count marginb-30">
                                 <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
                                 <div class="float-right back-white border-black inline p10">
                                     <img src="/img/modify.png" alt="Modifier" class="icon" id="clicker_{{ i }}_modify">
@@ -31,7 +31,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div id="{{ i }}_modify" class="to-count">
+                            <div id="{{ i }}_modify" class="to-count marginb-30">
                                 {{ form_row(form.pictures[counter].picturefile) }}
                             <div class="button-blue" id="clicker_{{ i }}_modify-cancel">Retour</div>
                             </div>
@@ -56,9 +56,9 @@
                     </div>
                     <div class="width70">
                         {{ form_row(form.description, { 'attr': {'class': 'height400'}}) }}
+                        {{ form_row(form.tagsVideo) }}
                         {{ form_row(form.relatedGroup) }}
                     </div>
-                    
                 </section>
                 
                 <div class="display-none">
