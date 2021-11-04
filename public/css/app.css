@@ -529,7 +529,7 @@ input[type="checkbox"] {
 }
 
 /* smartphones */
-@media screen and (max-width: 812px) {
+@media screen and (max-width: 1279px) {  /*812px*/
     .for-smartphone {
         display: block !important;
     }
@@ -572,6 +572,11 @@ input[type="checkbox"] {
     nav > ul > li {
         display: block;
         float:initial;
+    }
+
+    .center-smartphone {
+        text-align: center;
+        display: block;
     }
 
     .third-icon {
@@ -636,9 +641,4 @@ input[type="checkbox"] {
         margin-left: auto;
         margin-right: auto;
     }
-}
-
-/*tablets*/
-@media screen and (min-width: 813px) and (max-width: 1279px) {
-
 }
