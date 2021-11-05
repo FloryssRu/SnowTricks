@@ -23,7 +23,6 @@ First make sure you have PHP 8.0.10 or newer !
 Here are the analysis by CodeClimate :
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/ce74b8c22c739e98135d/maintainability)](https://codeclimate.com/github/FloryssRu/SnowTricks/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ce74b8c22c739e98135d/test_coverage)](https://codeclimate.com/github/FloryssRu/SnowTricks/test_coverage)
 
 
 I hope you will like my SnowTricks app !

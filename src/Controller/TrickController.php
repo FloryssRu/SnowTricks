@@ -152,4 +152,12 @@ class TrickController extends AbstractController
             'next' => min(count($paginator), $offset + MessageRepository::MESSAGES_PER_PAGE)
         ]);
     }
+
+    /**
+     * @Route("/mentions-legales}", name="app_notices", methods={"GET"})
+     */
+    public function notices(): Response
+    {
+        return $this->render('legality/notices.html.twig');
+    }
 }

@@ -1,4 +1,4 @@
-/* ----------------------- for all pages*/
+/* for all pages*/
 
 .for-smartphone {
     display: none !important;
@@ -253,7 +253,7 @@ footer {
 }
 
 
-/* ----------------------- generals classes */
+/* generals classes */
 
 .marginb-50 {
     margin-bottom: 50px;
@@ -528,8 +528,8 @@ input[type="checkbox"] {
     object-fit: cover;
 }
 
-/* smartphones */
-@media screen and (max-width: 1279px) {  /*812px*/
+/* smartphones and tablets */
+@media screen and (max-width: 1279px) {
     .for-smartphone {
         display: block !important;
     }
