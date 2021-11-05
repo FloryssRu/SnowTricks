@@ -3,27 +3,27 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="error">Une erreur est survenue.</div>
-    {% endif %}
+    <form method="post">
+        {% if error %}
+            <div class="error">Une erreur est survenue.</div>
+        {% endif %}
 
-    <h1>Connexion</h1>
-    <label for="inputUsername">Nom d'utilisateur</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <h1>Connexion</h1>
+        <label for="inputUsername">Nom d'utilisateur</label>
+        <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <div class="margin-y30">
-        <label>
-            <input type="checkbox" name="_remember_me"> Se souvenir de moi
-        </label>
-    </div>
+        <div class="margin-y30">
+            <label>
+                <input type="checkbox" name="_remember_me"> Se souvenir de moi
+            </label>
+        </div>
 
-    <button class="button-blue" type="submit">Me connecter</button>
-    <p class="text-center"><a href="{{ path('app_register') }}">Vous n'avez pas encore de compte ?</a></p>
-    <p class="text-center"><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
-</form>
+        <button class="button-blue" type="submit">Me connecter</button>
+        <p class="text-center"><a href="{{ path('app_register') }}">Vous n'avez pas encore de compte ?</a></p>
+        <p class="text-center"><a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a></p>
+    </form>
 {% endblock %}
