@@ -3,8 +3,8 @@
 {% block title %}{{ trick.name }}{% endblock %}
 
 {% block body %}
-    <img src="/img/gradient_blue.png" class="width100 absolute z-index-2">
-    <div class="paddingb-200">
+    <img src="/img/gradient_blue.png" class="width100 absolute z-index-2 not-for-smartphone">
+    <div class="paddingb-200 paddingt-10-smartphone">
         <div class="main-content">
             {% if trick.pictures.first() %}
                 {% set pictureHeader = trick.pictures.first() %}
@@ -25,13 +25,16 @@
                         </button>
                     </form>
                 </div>
+                <h1 class="relative top200-laptop top50-smartphone">{{ trick.name }}</h1>
+            {% else %}
+                <h1 class="relative top200-laptop top80-smartphone">{{ trick.name }}</h1>
             {% endif %}
-                <h1 class="relative top200">{{ trick.name }}</h1>
             </header>
-            <section class="margin-y30">
+            <button id="show_medias" class="for-smartphone button-blue">Voir les médias</button>
+            <section class="margin-y30 not-for-smartphone" id="medias">
                 <div class="flexbox-tight">
                     {% for picture in trick.pictures %}
-                        <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure">
+                        <img src="{{ asset("img-tricks/" ~ picture.name) }}" alt="image de la figure" class="marginb-30">
                     {% endfor %}
                     {{ trick.tagsVideo | raw }}
                 </div>
@@ -59,7 +62,7 @@
                 {% if app.user %}
                     {{ form_start(form) }}
                         {{ form_widget(form) }}
-                        <input type="submit" value="Envoyer" class="button-blue margin-b30">
+                        <input type="submit" value="Envoyer" class="button-blue marginb-30">
                     {{ form_end(form) }}
                 {% else %}
                     <div class="width50 text-center">
@@ -67,7 +70,7 @@
                     </div>
                 {% endif %}
                     <hr>
-                    <div class="width50">
+                    <div class="width50 width90-smartphone">
                         {% for message in messages %}
                             <div class="message">
                                 <div class="message-user">
@@ -95,4 +98,9 @@
             </section>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/jquery/hide_medias.js"></script>
 {% endblock %}

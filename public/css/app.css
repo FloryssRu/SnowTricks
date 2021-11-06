@@ -1,5 +1,14 @@
 /* for all pages*/
 
+.for-smartphone {
+    display: none !important;
+}
+
+.width33_smartphone {
+    width: auto;
+    display: inline;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -48,10 +57,17 @@ div.error {
     text-align: center;
 }
 
+.flash-parent {
+    position: absolute;
+    height: 90%;
+}
+
 .flash-container {
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: sticky;
+    top: 10px;
+    z-index: 1;
 }
 
 .flash {
@@ -63,7 +79,6 @@ div.error {
     border: black 2px solid;
     background-color: black;
     color: white;
-    position: fixed;
     z-index: 1;
 }
 
@@ -158,6 +173,7 @@ input[type="checkbox"] + label {
     border-radius: 5px 5px;
     margin-top: 30px;
     cursor: pointer;
+    text-align: center;
 }
 
 .tiny-button-blue {
@@ -170,9 +186,19 @@ input[type="checkbox"] + label {
     cursor: pointer;
 }
 
-.margin-y30 {
+.button-red {
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    background-color: #EC1717;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px;
+    margin-top: 10px;
     margin-bottom: 30px;
-    margin-top: 30px;
+    cursor: pointer;
 }
 
 .flexbox {
@@ -194,6 +220,11 @@ input[type="checkbox"] + label {
 
 .flexbox-tight > img {
     width: 200px;
+}
+
+.flexbox-tight > div > img {
+    width: 200px;
+    display: block;
 }
 
 .buttonlink {
@@ -219,6 +250,94 @@ footer {
     position: absolute;
     bottom: 0px;
     width: 98%;
+}
+
+
+/* generals classes */
+
+.marginb-50 {
+    margin-bottom: 50px;
+}
+
+.marginb-30 {
+    margin-bottom: 30px;
+}
+
+.margin-y30 {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.paddingb-200 {
+    padding-bottom: 200px;
+}
+
+.paddingb-100 {
+    padding-bottom: 100px;
+}
+
+.p10 {
+    padding: 10px;
+}
+
+.display-none {
+    display: none;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.width70 {
+    width: 70%;
+    margin-left: 15%;
+}
+
+.width50 {
+    width: 50%;
+    margin-left: 25%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.inline {
+    display: inline;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+.top200, .top200-laptop {
+    top: 200px;
+}
+
+.z-index-2 {
+    z-index: -2;
+}
+
+.float-right {
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.back-white {
+    background-color: white;
+}
+
+.border-black {
+    border: 2px black solid;
+}
+
+.height400 {
+    height: 400px;
 }
 
 
@@ -314,38 +433,8 @@ header.trick-page {
     overflow: hidden;
 }
 
-.paddingb-200 {
-    padding-bottom: 200px;
-}
-
-.width100 {
-    width: 100%;
-}
-
-.width70 {
-    width: 70%;
-    margin-left: 15%;
-}
-
-.width50 {
-    width: 50%;
-    margin-left: 25%;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.absolute {
-    position: absolute;
-}
-
-.relative {
-    position: relative;
-}
-
-.z-index-2 {
-    z-index: -2;
+.float-right + h1 {
+    clear: both;
 }
 
 .main-content {
@@ -356,46 +445,13 @@ header.trick-page {
     background-color: white;
 }
 
-.top200 {
-    top: 200px;
-}
-
-.float-right {
-    float: right;
-    margin-top: 20px;
-    margin-right: 20px;
-}
-
-.back-white {
-    background-color: white;
-}
-
-.border-black {
-    border: 2px black solid;
-}
-
-.inline {
-    display: inline;
-}
-
-.p10 {
-    padding: 10px;
-}
-
-.float-right + h1 {
-    clear: both;
-}
-
 div.info {
     border-radius: 5px 5px;
     background-color: #43b0f1;
     padding-left: 15px;
     padding-right: 15px;
     color: white;
-}
-
-.margin-b30 {
-    margin-bottom: 30px;
+    margin-bottom : 30px;
 }
 
 .iframe {
@@ -472,10 +528,117 @@ input[type="checkbox"] {
     object-fit: cover;
 }
 
-.marginb-50 {
-    margin-bottom: 50px;
-}
+/* smartphones and tablets */
+@media screen and (max-width: 1279px) {
+    .for-smartphone {
+        display: block !important;
+    }
 
-.paddingb-100 {
-    padding-bottom: 100px;
+    .not-for-smartphone {
+        display: none;
+    }
+
+    nav {
+        position: fixed;
+        bottom: 0px;
+        height: 50px;
+        z-index: 2;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .menu-smartphone {
+        height: 40px;
+        line-height: 60px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    nav > ul {
+        display: none;
+        position: absolute;
+        bottom: 40px;
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        background-color: #1e3d58;
+    }
+    
+    nav > ul > li {
+        display: block;
+        float:initial;
+    }
+
+    .center-smartphone {
+        text-align: center;
+        display: block;
+    }
+
+    .third-icon {
+        height: 40px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .width33_smartphone {
+        width: 33%;
+    }
+
+    .button-blue {
+        display: block;
+    }
+
+    footer {
+        display: none;
+    }
+
+    /* create trick page */
+    
+    form {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* unique trick page */
+
+    .main-content {
+        margin-top: 10px;
+        margin-left: 5%;
+        width:90%;
+    }
+
+    .paddingt-10-smartphone {
+        padding-top: 10px;
+    }
+
+    header.trick-page {
+        height: 300px;
+    }
+
+    .top50-smartphone {
+        top: 50px;
+    }
+
+    .top80-smartphone {
+        top: 80px;
+    }
+
+    .width90-smartphone {
+        margin-left: 5%;
+        margin-right: 5%;
+        width: 90%;
+    }
+
+    .message {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

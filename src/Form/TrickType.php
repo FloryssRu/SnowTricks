@@ -18,7 +18,7 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'attr' => ['autofocus' => true],
+                'attr' => ['autofocus' => $options['name_autofocus']],
                 'label' => 'Nom de la figure'
             ])
             ->add('description', TextareaType::class)
@@ -30,7 +30,8 @@ class TrickType extends AbstractType
                     'required' => $options['required_pictures']
                 ],
                 'by_reference' => false,
-                'allow_add' => true
+                'allow_add' => true,
+                'allow_delete' => true
             ])
             ->add('tagsVideo', TextareaType::class, [
                 'label' => 'Balise(s) <iframe> de vidéos en ligne (sans attributs width et height)'
@@ -49,7 +50,8 @@ class TrickType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Trick::class,
             'label_pictures' => 'Images de la figure',
-            'required_pictures' => true
+            'required_pictures' => true,
+            'name_autofocus' => true
         ]);
     }
 }

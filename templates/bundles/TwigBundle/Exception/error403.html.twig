@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 403{% endblock %}
+
+{% block body %}
+    <div class="width50 margin-y30">
+        Vous n'avez pas les droits pour accéder à cette page.
+        Veuillez retourner à l'<a href="{{ path('app_home') }}">accueil</a>.
+    </div>
+{% endblock %}

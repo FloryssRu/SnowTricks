@@ -233,7 +233,7 @@ class Trick
     {
         if ($this->pictures->removeElement($picture)) {
             if ($picture->getTrick() === $this) {
-                $picture->setTrick(null);
+                $this->pictures->removeElement($picture);
             }
         }
 

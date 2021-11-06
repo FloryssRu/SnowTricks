@@ -74,13 +74,14 @@ class TrickController extends AbstractController
     public function update(Request $request, SluggerInterface $slugger, HandlerPictures $handlerPictures, Trick $trick): Response
     {
         $form = $this->createForm(TrickType::class, $trick, [
-            'label_pictures' => 'Remplacer les images déjà ajoutées',
-            'required_pictures' => false
+            'required_pictures' => false,
+            'name_autofocus' => false
         ]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $pictures = $handlerPictures->deleteEmptyPictures($request->files->all()['trick']['pictures']);
             $handlerPictures->savePictures($pictures, $trick, $slugger);
 
@@ -150,5 +151,13 @@ class TrickController extends AbstractController
             'previous' => $offset - MessageRepository::MESSAGES_PER_PAGE,
             'next' => min(count($paginator), $offset + MessageRepository::MESSAGES_PER_PAGE)
         ]);
+    }
+
+    /**
+     * @Route("/mentions-legales}", name="app_notices", methods={"GET"})
+     */
+    public function notices(): Response
+    {
+        return $this->render('legality/notices.html.twig');
     }
 }
