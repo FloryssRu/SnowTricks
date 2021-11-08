@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class EmailSender
@@ -18,7 +19,7 @@ class EmailSender
     public function sendEmail(UserInterface $user, string $title, string $templateMessage): void
     {
         $email = (new TemplatedEmail())
-            ->from('noreply@snowtricks.com')
+            ->from(new Address('noreply@snowtricks.com', 'Snowtricks'))
             ->to($user->getEmail())
             ->subject($title)
             ->htmlTemplate($templateMessage)

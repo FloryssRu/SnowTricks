@@ -141,6 +141,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $pictureName;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Type(
+     *      type = "string",
+     *      message = "La valeur {{ value }} n'est pas un {{ type }} valide."
+     * )
+     */
+    private ?string $token;
+
     public function __construct()
     {
         $this->message = new ArrayCollection();
@@ -291,6 +300,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPictureName(?string $pictureName): self
     {
         $this->pictureName = $pictureName;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }

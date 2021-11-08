@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Controller\ResetPasswordController;
 use App\Repository\UserRepository;
+use Exception;
 
 class HandlerResetPassword extends ResetPasswordController
 {
@@ -16,5 +17,15 @@ class HandlerResetPassword extends ResetPasswordController
         }
 
         return $user->getEmail();
+    }
+
+    public function validateTokenAndFetchUser(string $token)
+    {
+        if (!$this->csrfManager->isTokenValid($token)) {
+            return new Exception("Une erreur est survenue.");
+        }
+
+        $user = $this->UserRepo->findBy(["token" => $token]);
+        return $user;
     }
 }

@@ -2,8 +2,8 @@
 
 <p>Pour changer votre mot de passe, veuillez cliquer sur le lien ci-dessous.</p>
 
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
-
-<p>Ce lien exprire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+<a href="{{ url('app_reset_password', {token: token }) }}">
+    {{ url('app_reset_password', {token: token }) }}
+</a>
 
 <p>A bientôt sur Snowtricks !</p>
