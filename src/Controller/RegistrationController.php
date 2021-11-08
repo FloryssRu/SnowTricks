@@ -52,9 +52,9 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/verify/email/<token>", name="app_verify_email")
+     * @Route("/verify/email/{token}", name="app_verify_email")
      */
-    public function verifyUserEmail(string $token): Response
+    public function verifyUserEmail(EntityManagerInterface $em, string $token): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -63,6 +63,11 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_register');
         }
+
+        $user = $this->getUser();
+        $user->setIsVerified(true);
+        $em->persist($user);
+        $em->flush();
 
         $this->addFlash('success', 'Votre adresse email a été vérifiée.');
 

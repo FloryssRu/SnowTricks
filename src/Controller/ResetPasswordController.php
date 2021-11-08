@@ -11,15 +11,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 /**
@@ -27,11 +25,11 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class ResetPasswordController extends AbstractController
 {
-    private $UserRepo;
+    protected $UserRepo;
     private $em;
     private $session;
 
-    public function __construct(UserRepository $UserRepo, EntityManagerInterface $em, Session $session, CsrfTokenManagerInterface $csrfManager)
+    public function __construct(UserRepository $UserRepo, EntityManagerInterface $em, SessionInterface $session, CsrfTokenManagerInterface $csrfManager)
     {
         $this->UserRepo = $UserRepo;
         $this->em = $em;
@@ -49,7 +47,11 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $email = $handlerResetPassword->findEmailByUserName($form->get('username')->getData(), $this->UserRepo);
+            try {
+                $email = $handlerResetPassword->findEmailByUserName($form->get('username')->getData(), $this->UserRepo);
+            } catch (Exception $e) {
+                return $this->redirectToRoute('app_login');
+            }
 
             return $this->processSendingPasswordResetEmail(
                 $email,
@@ -66,12 +68,12 @@ class ResetPasswordController extends AbstractController
      * Validates and process the reset URL that the user clicked in their email.
      * @Route("/reset/{token}", name="app_reset_password", methods={"GET", "POST"})
      */
-    public function reset(Request $request, UserPasswordHasherInterface $passwordEncoder, HandlerResetPassword $handlerResetPassword, string $token = null): Response
+    public function reset(Request $request, UserPasswordHasherInterface $passwordEncoder, HandlerResetPassword $handlerResetPassword, string $token): Response
     {
         if ($token !== $this->session->get('resetToken')) {
             $this->session->set('resetToken', $token);
-            return $this->redirectToRoute('app_reset_password');
-        }
+            return $this->redirectToRoute('app_reset_password', ['token' => $token]);
+        }     
 
         $token = $this->session->get('resetToken');
 
@@ -79,13 +81,7 @@ class ResetPasswordController extends AbstractController
             throw $this->createNotFoundException("Aucun token de réinitialisation de mot de passe trouvé dans la session ou dans l'URL.");
         }
 
-        try {
-            $user = $handlerResetPassword->validateTokenAndFetchUser($token);
-        } catch (Exception $e) {
-            $this->addFlash('error', 'Il y a eu un problème avec votre requête.');
-
-            return $this->redirectToRoute('app_forgot_password_request');
-        }
+        $user = $handlerResetPassword->validateTokenAndFetchUser($token);
 
         $form = $this->createForm(ChangePasswordFormType::class);
         $form->handleRequest($request);
@@ -97,6 +93,7 @@ class ResetPasswordController extends AbstractController
             );
 
             $user->setPassword($encodedPassword);
+            $user->setToken(null);
             $this->em->flush();
             $this->session->clear();
             $this->addFlash('success', 'Votre mot de passe a bien été changé.');
@@ -109,7 +106,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    private function processSendingPasswordResetEmail(string $email, MailerInterface $mailer): RedirectResponse
+    private function processSendingPasswordResetEmail(string $email, MailerInterface $mailer): Response
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
             'email' => $email,

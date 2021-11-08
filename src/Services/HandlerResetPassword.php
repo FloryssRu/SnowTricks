@@ -21,11 +21,11 @@ class HandlerResetPassword extends ResetPasswordController
 
     public function validateTokenAndFetchUser(string $token)
     {
-        if (!$this->csrfManager->isTokenValid($token)) {
-            return new Exception("Une erreur est survenue.");
+        if (!$this->isCsrfTokenValid('reset_password', $token)) {
+            return throw new Exception("Une erreur est survenue.");
         }
 
-        $user = $this->UserRepo->findBy(["token" => $token]);
+        $user = $this->UserRepo->findOneBy(["token" => $token]);
         return $user;
     }
 }
